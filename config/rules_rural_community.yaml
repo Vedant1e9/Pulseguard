@@ -1,0 +1,96 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# Site rule pack: Rural Community Emergency Department
+# ═══════════════════════════════════════════════════════════════════════════
+#
+# An overlay on rules_default.yaml, not a replacement. Only the differences
+# appear here; everything else is inherited, so an improvement to a shared
+# clinical rule reaches this site automatically.
+#
+# The site's operating reality: 12 beds, no on-site surgeon or intensivist,
+# nearest tertiary centre 90 minutes by road and weather-dependent by air.
+# That single fact pushes the policy in two directions at once. Escalation
+# thresholds tighten, because "wait and watch" is a worse option here than at
+# a centre that can intervene immediately: the correct action is often to
+# start the transfer conversation early. But rules that depend on capability
+# this site does not have are disabled rather than left to fire pointlessly,
+# because an alert nobody can act on is how staff learn to ignore alerts.
+# ═══════════════════════════════════════════════════════════════════════════
+
+pack_id: rural_community_ed
+version: "2.1.0-rural"
+effective_date: "2026-08-28"
+description: >
+  Small rural ED, no on-site specialist cover, 90-minute transfer time.
+  Escalates earlier than the urban default because definitive care is far
+  away, and suppresses alerts the site cannot act on locally.
+approved_by: "Prototype, not yet clinically approved for deployment"
+
+thresholds:
+  # Tightened across the board. With transfer measured in hours, the moment to
+  # act on a deteriorating patient is earlier than it would be somewhere with
+  # an intensivist one floor up.
+  adult:
+    hr_high: 130
+    rr_high: 26
+    spo2_low: 92
+    sbp_low: 100
+    citation: "NEWS2 with rural transfer-time adjustment (local policy)"
+
+  geriatric:
+    hr_high: 120
+    rr_high: 24
+    spo2_low: 93
+    sbp_low: 105
+    citation: "NEWS2 geriatric band, rural transfer-time adjustment"
+
+  pediatric:
+    # This site sees few children and stabilises rather than treats them.
+    # Thresholds are deliberately the most conservative in the pack.
+    hr_high: 170
+    rr_high: 38
+    spo2_low: 94
+    sbp_low: 75
+    citation: "PALS, adjusted for stabilise-and-transfer model of care"
+
+rules:
+  - id: SEPSIS_PHYSIOLOGY
+    enabled: true
+    escalate_to: 2
+    clinical_rationale: >
+      Retained and prioritised. Antibiotics and fluids are the two things this
+      site can always start immediately, and starting them before transfer is
+      exactly where a rural ED changes the outcome.
+
+  - id: GERIATRIC_ANTICOAGULATED_FALL
+    enabled: true
+    escalate_to: 2
+    clinical_rationale: >
+      Retained with emphasis. There is no CT scanner on site, so this rule does
+      not trigger a scan. It triggers the transfer decision, which is the
+      slowest link in the chain and the one worth starting early.
+
+  - id: CRITICAL_NOT_EXCLUDED
+    enabled: true
+    escalate_to: 3
+    clinical_rationale: >
+      Retained. With a single physician on shift, the cost of a second look is
+      minutes; the cost of missing a critical patient is a 90-minute transfer
+      that should already have started.
+
+  - id: DETERIORATION_VELOCITY_HIGH
+    enabled: true
+    escalate_to: 2
+    clinical_rationale: >
+      Escalated one level above the urban default. A worsening trend here means
+      the transfer conversation should begin now, not once an absolute
+      threshold is crossed. By then the patient is travelling unstable.
+
+reassessment_intervals:
+  # More frequent than the urban default. Fewer patients means reassessment is
+  # affordable, and with definitive care far away, a stale observation is a
+  # bigger liability.
+  1: 0
+  2: 5
+  3: 20
+  4: 45
+  5: 90

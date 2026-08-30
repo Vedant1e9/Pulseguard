@@ -1,0 +1,44 @@
+# ── Real research data ──
+# NHAMCS public-use files are ~80 MB and are redistributed by the CDC, not by
+# this repository. The loader downloads them on demand:
+#     python -m data.real.nhamcs_loader --download 2022
+# The record layouts and parse validation are in version control; the raw
+# survey files are not.
+# The compressed public-use files ARE tracked: 3.7 MB for both years, against
+# 73 MB extracted. They are US federal public-domain data, freely
+# redistributable, and shipping them is what lets someone clone this
+# repository and run it without a download step. The loader extracts them
+# automatically on first use.
+data/real/ed20*/
+data/real/*.pdf
+
+# ── Trained artefacts ──
+# The bundle IS tracked. It is 8.3 MB, and it is what makes `streamlit run
+# app.py` work on a fresh clone: without it the application cannot start, and
+# regenerating it means running the full training job first. Reproducible from
+# source at any time with `python -m scripts.train_model`.
+
+# ── Runtime ──
+logs/*.jsonl
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.DS_Store
+.venv/
+venv/
+.coverage
+htmlcov/
+.ipynb_checkpoints/
+
+# ── Pitch and commercial material — not part of the code submission ──
+# These stay in the working folder because they are the actual competition
+# deliverables, submitted through the AIC portal. This repository is scoped to
+# the code and the running prototype, so they are deliberately not published.
+business-proposal.md
+PatientTriage-ai_Detailed-Business-Proposal.pdf
+presentation.md
+presentation/
+
+# ── Third-party documents ──
+# Accenture's challenge brief. Theirs to distribute, not ours.
+Problem_Statement.pdf

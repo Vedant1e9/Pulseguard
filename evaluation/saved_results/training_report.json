@@ -1,0 +1,737 @@
+{
+  "splits": {
+    "train": {
+      "n_visits": 11691,
+      "n_hospitals": 96
+    },
+    "calibrate": {
+      "n_visits": 2889,
+      "n_hospitals": 26
+    },
+    "conformal": {
+      "n_visits": 2806,
+      "n_hospitals": 26
+    },
+    "test": {
+      "n_visits": 3316,
+      "n_hospitals": 28
+    }
+  },
+  "leaderboard": [
+    {
+      "critical_recall": 0.7252,
+      "under_triage_rate": 0.0879,
+      "critical_under_triage_rate": 0.2748,
+      "critical_under_triage_count": 119,
+      "over_triage_rate": 0.4147,
+      "accuracy": 0.4974,
+      "within_one_level": 0.9235,
+      "n": 2889,
+      "n_critical": 433,
+      "model": "XGBoost",
+      "selected_lambda": 0.3,
+      "budget_status": "met_both_constraints",
+      "safety_score": 0.7418,
+      "train_seconds": 6.65,
+      "auroc_critical": 0.795
+    },
+    {
+      "critical_recall": 0.7483,
+      "under_triage_rate": 0.2333,
+      "critical_under_triage_rate": 0.2517,
+      "critical_under_triage_count": 109,
+      "over_triage_rate": 0.3579,
+      "accuracy": 0.4088,
+      "within_one_level": 0.829,
+      "n": 2889,
+      "n_critical": 433,
+      "model": "HistGradientBoosting",
+      "selected_lambda": 0.08,
+      "budget_status": "safety_floor_met_lane_budget_exceeded",
+      "safety_score": 0.7341,
+      "train_seconds": 1.52,
+      "auroc_critical": 0.7929
+    },
+    {
+      "critical_recall": 0.6582,
+      "under_triage_rate": 0.2077,
+      "critical_under_triage_rate": 0.3418,
+      "critical_under_triage_count": 148,
+      "over_triage_rate": 0.3174,
+      "accuracy": 0.4749,
+      "within_one_level": 0.8972,
+      "n": 2889,
+      "n_critical": 433,
+      "model": "RandomForest",
+      "selected_lambda": 0.08,
+      "budget_status": "met_both_constraints",
+      "safety_score": 0.6692,
+      "train_seconds": 1.92,
+      "auroc_critical": 0.7929
+    },
+    {
+      "critical_recall": 0.7182,
+      "under_triage_rate": 0.1457,
+      "critical_under_triage_rate": 0.2818,
+      "critical_under_triage_count": 122,
+      "over_triage_rate": 0.3517,
+      "accuracy": 0.5026,
+      "within_one_level": 0.9221,
+      "n": 2889,
+      "n_critical": 433,
+      "model": "LightGBM",
+      "selected_lambda": 0.2,
+      "budget_status": "met_both_constraints",
+      "safety_score": 0.7278,
+      "train_seconds": 5.64,
+      "auroc_critical": 0.7894
+    },
+    {
+      "critical_recall": 0.6952,
+      "under_triage_rate": 0.3603,
+      "critical_under_triage_rate": 0.3048,
+      "critical_under_triage_count": 132,
+      "over_triage_rate": 0.3188,
+      "accuracy": 0.3209,
+      "within_one_level": 0.7352,
+      "n": 2889,
+      "n_critical": 433,
+      "model": "LogisticRegression",
+      "selected_lambda": 0.05,
+      "budget_status": "safety_floor_met_lane_budget_exceeded",
+      "safety_score": 0.6682,
+      "train_seconds": 0.62,
+      "auroc_critical": 0.7674
+    }
+  ],
+  "selected_model": "XGBoost",
+  "selection_criterion": "Every candidate is tuned to the same escalation budget (≤35% emergent-lane load, ≥65% critical recall), then ranked by AUROC for critical (Level 1 or 2) identification and by critical recall achieved at that matched budget. Overall accuracy is reported but never selects a model: a model that calls every patient Level 1 has perfect critical recall and is useless.",
+  "calibration": {
+    "method_selected": "sigmoid",
+    "before": {
+      "brier_score": 0.5538,
+      "expected_calibration_error": 0.089,
+      "max_calibration_error": 0.2899,
+      "reliability_curve": [
+        {
+          "bin_lower": 0.2,
+          "bin_upper": 0.3,
+          "n": 1,
+          "mean_confidence": 0.2899,
+          "accuracy": 0.0,
+          "gap": 0.2899
+        },
+        {
+          "bin_lower": 0.3,
+          "bin_upper": 0.4,
+          "n": 33,
+          "mean_confidence": 0.3781,
+          "accuracy": 0.4848,
+          "gap": 0.1067
+        },
+        {
+          "bin_lower": 0.4,
+          "bin_upper": 0.5,
+          "n": 323,
+          "mean_confidence": 0.4673,
+          "accuracy": 0.3963,
+          "gap": 0.071
+        },
+        {
+          "bin_lower": 0.5,
+          "bin_upper": 0.6,
+          "n": 662,
+          "mean_confidence": 0.5502,
+          "accuracy": 0.5257,
+          "gap": 0.0246
+        },
+        {
+          "bin_lower": 0.6,
+          "bin_upper": 0.7,
+          "n": 614,
+          "mean_confidence": 0.6494,
+          "accuracy": 0.5684,
+          "gap": 0.0809
+        },
+        {
+          "bin_lower": 0.7,
+          "bin_upper": 0.8,
+          "n": 555,
+          "mean_confidence": 0.7483,
+          "accuracy": 0.6144,
+          "gap": 0.1339
+        },
+        {
+          "bin_lower": 0.8,
+          "bin_upper": 0.9,
+          "n": 400,
+          "mean_confidence": 0.8486,
+          "accuracy": 0.72,
+          "gap": 0.1286
+        },
+        {
+          "bin_lower": 0.9,
+          "bin_upper": 1.0,
+          "n": 218,
+          "mean_confidence": 0.9327,
+          "accuracy": 0.789,
+          "gap": 0.1437
+        }
+      ],
+      "mean_confidence": 0.6717,
+      "accuracy": 0.5852,
+      "interpretation": "Calibration gap (mean confidence − accuracy) of +0.0865. Positive means the system is overconfident."
+    },
+    "after": {
+      "brier_score": 0.5439,
+      "expected_calibration_error": 0.0349,
+      "max_calibration_error": 0.7223,
+      "reliability_curve": [
+        {
+          "bin_lower": 0.2,
+          "bin_upper": 0.3,
+          "n": 1,
+          "mean_confidence": 0.2777,
+          "accuracy": 1.0,
+          "gap": 0.7223
+        },
+        {
+          "bin_lower": 0.3,
+          "bin_upper": 0.4,
+          "n": 23,
+          "mean_confidence": 0.3666,
+          "accuracy": 0.3913,
+          "gap": 0.0247
+        },
+        {
+          "bin_lower": 0.4,
+          "bin_upper": 0.5,
+          "n": 469,
+          "mean_confidence": 0.4657,
+          "accuracy": 0.4819,
+          "gap": 0.0161
+        },
+        {
+          "bin_lower": 0.5,
+          "bin_upper": 0.6,
+          "n": 757,
+          "mean_confidence": 0.551,
+          "accuracy": 0.5376,
+          "gap": 0.0133
+        },
+        {
+          "bin_lower": 0.6,
+          "bin_upper": 0.7,
+          "n": 814,
+          "mean_confidence": 0.652,
+          "accuracy": 0.5799,
+          "gap": 0.0721
+        },
+        {
+          "bin_lower": 0.7,
+          "bin_upper": 0.8,
+          "n": 725,
+          "mean_confidence": 0.7489,
+          "accuracy": 0.7228,
+          "gap": 0.0262
+        },
+        {
+          "bin_lower": 0.8,
+          "bin_upper": 0.9,
+          "n": 17,
+          "mean_confidence": 0.8026,
+          "accuracy": 0.8824,
+          "gap": 0.0797
+        }
+      ],
+      "mean_confidence": 0.6171,
+      "accuracy": 0.5895,
+      "interpretation": "Calibration gap (mean confidence − accuracy) of +0.0276. Positive means the system is overconfident."
+    },
+    "candidates": {
+      "isotonic": {
+        "brier_score": 0.542,
+        "expected_calibration_error": 0.0357,
+        "max_calibration_error": 0.1101,
+        "reliability_curve": [
+          {
+            "bin_lower": 0.3,
+            "bin_upper": 0.4,
+            "n": 49,
+            "mean_confidence": 0.3611,
+            "accuracy": 0.4082,
+            "gap": 0.0471
+          },
+          {
+            "bin_lower": 0.4,
+            "bin_upper": 0.5,
+            "n": 307,
+            "mean_confidence": 0.4607,
+            "accuracy": 0.4169,
+            "gap": 0.0438
+          },
+          {
+            "bin_lower": 0.5,
+            "bin_upper": 0.6,
+            "n": 1033,
+            "mean_confidence": 0.5525,
+            "accuracy": 0.5489,
+            "gap": 0.0036
+          },
+          {
+            "bin_lower": 0.6,
+            "bin_upper": 0.7,
+            "n": 852,
+            "mean_confidence": 0.6385,
+            "accuracy": 0.5869,
+            "gap": 0.0516
+          },
+          {
+            "bin_lower": 0.7,
+            "bin_upper": 0.8,
+            "n": 257,
+            "mean_confidence": 0.7508,
+            "accuracy": 0.677,
+            "gap": 0.0738
+          },
+          {
+            "bin_lower": 0.8,
+            "bin_upper": 0.9,
+            "n": 271,
+            "mean_confidence": 0.851,
+            "accuracy": 0.8007,
+            "gap": 0.0502
+          },
+          {
+            "bin_lower": 0.9,
+            "bin_upper": 1.0,
+            "n": 37,
+            "mean_confidence": 0.9209,
+            "accuracy": 0.8108,
+            "gap": 0.1101
+          }
+        ],
+        "mean_confidence": 0.6171,
+        "accuracy": 0.583,
+        "interpretation": "Calibration gap (mean confidence − accuracy) of +0.0340. Positive means the system is overconfident."
+      },
+      "sigmoid": {
+        "brier_score": 0.5439,
+        "expected_calibration_error": 0.0349,
+        "max_calibration_error": 0.7223,
+        "reliability_curve": [
+          {
+            "bin_lower": 0.2,
+            "bin_upper": 0.3,
+            "n": 1,
+            "mean_confidence": 0.2777,
+            "accuracy": 1.0,
+            "gap": 0.7223
+          },
+          {
+            "bin_lower": 0.3,
+            "bin_upper": 0.4,
+            "n": 23,
+            "mean_confidence": 0.3666,
+            "accuracy": 0.3913,
+            "gap": 0.0247
+          },
+          {
+            "bin_lower": 0.4,
+            "bin_upper": 0.5,
+            "n": 469,
+            "mean_confidence": 0.4657,
+            "accuracy": 0.4819,
+            "gap": 0.0161
+          },
+          {
+            "bin_lower": 0.5,
+            "bin_upper": 0.6,
+            "n": 757,
+            "mean_confidence": 0.551,
+            "accuracy": 0.5376,
+            "gap": 0.0133
+          },
+          {
+            "bin_lower": 0.6,
+            "bin_upper": 0.7,
+            "n": 814,
+            "mean_confidence": 0.652,
+            "accuracy": 0.5799,
+            "gap": 0.0721
+          },
+          {
+            "bin_lower": 0.7,
+            "bin_upper": 0.8,
+            "n": 725,
+            "mean_confidence": 0.7489,
+            "accuracy": 0.7228,
+            "gap": 0.0262
+          },
+          {
+            "bin_lower": 0.8,
+            "bin_upper": 0.9,
+            "n": 17,
+            "mean_confidence": 0.8026,
+            "accuracy": 0.8824,
+            "gap": 0.0797
+          }
+        ],
+        "mean_confidence": 0.6171,
+        "accuracy": 0.5895,
+        "interpretation": "Calibration gap (mean confidence − accuracy) of +0.0276. Positive means the system is overconfident."
+      },
+      "none": {
+        "brier_score": 0.5538,
+        "expected_calibration_error": 0.089,
+        "max_calibration_error": 0.2899,
+        "reliability_curve": [
+          {
+            "bin_lower": 0.2,
+            "bin_upper": 0.3,
+            "n": 1,
+            "mean_confidence": 0.2899,
+            "accuracy": 0.0,
+            "gap": 0.2899
+          },
+          {
+            "bin_lower": 0.3,
+            "bin_upper": 0.4,
+            "n": 33,
+            "mean_confidence": 0.3781,
+            "accuracy": 0.4848,
+            "gap": 0.1067
+          },
+          {
+            "bin_lower": 0.4,
+            "bin_upper": 0.5,
+            "n": 323,
+            "mean_confidence": 0.4673,
+            "accuracy": 0.3963,
+            "gap": 0.071
+          },
+          {
+            "bin_lower": 0.5,
+            "bin_upper": 0.6,
+            "n": 662,
+            "mean_confidence": 0.5502,
+            "accuracy": 0.5257,
+            "gap": 0.0246
+          },
+          {
+            "bin_lower": 0.6,
+            "bin_upper": 0.7,
+            "n": 614,
+            "mean_confidence": 0.6494,
+            "accuracy": 0.5684,
+            "gap": 0.0809
+          },
+          {
+            "bin_lower": 0.7,
+            "bin_upper": 0.8,
+            "n": 555,
+            "mean_confidence": 0.7483,
+            "accuracy": 0.6144,
+            "gap": 0.1339
+          },
+          {
+            "bin_lower": 0.8,
+            "bin_upper": 0.9,
+            "n": 400,
+            "mean_confidence": 0.8486,
+            "accuracy": 0.72,
+            "gap": 0.1286
+          },
+          {
+            "bin_lower": 0.9,
+            "bin_upper": 1.0,
+            "n": 218,
+            "mean_confidence": 0.9327,
+            "accuracy": 0.789,
+            "gap": 0.1437
+          }
+        ],
+        "mean_confidence": 0.6717,
+        "accuracy": 0.5852,
+        "interpretation": "Calibration gap (mean confidence − accuracy) of +0.0865. Positive means the system is overconfident."
+      }
+    },
+    "selection_rule": "Chosen on a fold used for neither training nor calibrator fitting, scoring ECE + 0.25·Brier so that a calibration method cannot win by flattening probabilities into uselessness."
+  },
+  "operating_point": {
+    "selected_lambda": 0.35,
+    "operating_point": {
+      "lambda": 0.35,
+      "critical_recall": 0.7406,
+      "critical_under_triage_rate": 0.2594,
+      "over_triage_rate": 0.4854,
+      "under_triage_rate": 0.0517,
+      "accuracy": 0.4629,
+      "pct_routed_level_1_2": 0.3475
+    },
+    "status": "met_both_constraints",
+    "budget": {
+      "max_critical_lane_load": 0.35,
+      "min_critical_recall": 0.65
+    },
+    "explanation": "λ = 0.35 selected under an escalation budget of ≤35% of arrivals routed to the emergent lane, with a ≥65% critical-recall floor. At this point the model alone catches 74.1% of Level 1 or 2 patients while sending 34.8% of arrivals to that lane."
+  },
+  "operating_curve": [
+    {
+      "lambda": 0.0,
+      "critical_recall": 0.0,
+      "critical_under_triage_rate": 1.0,
+      "over_triage_rate": 0.0,
+      "under_triage_rate": 0.9651,
+      "accuracy": 0.0349,
+      "pct_routed_level_1_2": 0.0
+    },
+    {
+      "lambda": 0.05,
+      "critical_recall": 0.1641,
+      "critical_under_triage_rate": 0.8359,
+      "over_triage_rate": 0.1158,
+      "under_triage_rate": 0.3279,
+      "accuracy": 0.5563,
+      "pct_routed_level_1_2": 0.0421
+    },
+    {
+      "lambda": 0.08,
+      "critical_recall": 0.2949,
+      "critical_under_triage_rate": 0.7051,
+      "over_triage_rate": 0.1654,
+      "under_triage_rate": 0.2477,
+      "accuracy": 0.587,
+      "pct_routed_level_1_2": 0.0788
+    },
+    {
+      "lambda": 0.1,
+      "critical_recall": 0.3592,
+      "critical_under_triage_rate": 0.6408,
+      "over_triage_rate": 0.1992,
+      "under_triage_rate": 0.2167,
+      "accuracy": 0.5841,
+      "pct_routed_level_1_2": 0.1026
+    },
+    {
+      "lambda": 0.12,
+      "critical_recall": 0.4035,
+      "critical_under_triage_rate": 0.5965,
+      "over_triage_rate": 0.2281,
+      "under_triage_rate": 0.1907,
+      "accuracy": 0.5813,
+      "pct_routed_level_1_2": 0.1258
+    },
+    {
+      "lambda": 0.15,
+      "critical_recall": 0.4701,
+      "critical_under_triage_rate": 0.5299,
+      "over_triage_rate": 0.2673,
+      "under_triage_rate": 0.1561,
+      "accuracy": 0.5766,
+      "pct_routed_level_1_2": 0.1554
+    },
+    {
+      "lambda": 0.18,
+      "critical_recall": 0.5233,
+      "critical_under_triage_rate": 0.4767,
+      "over_triage_rate": 0.3079,
+      "under_triage_rate": 0.1319,
+      "accuracy": 0.5602,
+      "pct_routed_level_1_2": 0.1846
+    },
+    {
+      "lambda": 0.2,
+      "critical_recall": 0.5654,
+      "critical_under_triage_rate": 0.4346,
+      "over_triage_rate": 0.3375,
+      "under_triage_rate": 0.1162,
+      "accuracy": 0.5463,
+      "pct_routed_level_1_2": 0.2042
+    },
+    {
+      "lambda": 0.22,
+      "critical_recall": 0.5876,
+      "critical_under_triage_rate": 0.4124,
+      "over_triage_rate": 0.3614,
+      "under_triage_rate": 0.1026,
+      "accuracy": 0.536,
+      "pct_routed_level_1_2": 0.2195
+    },
+    {
+      "lambda": 0.25,
+      "critical_recall": 0.6208,
+      "critical_under_triage_rate": 0.3792,
+      "over_triage_rate": 0.3931,
+      "under_triage_rate": 0.0877,
+      "accuracy": 0.5192,
+      "pct_routed_level_1_2": 0.247
+    },
+    {
+      "lambda": 0.28,
+      "critical_recall": 0.6608,
+      "critical_under_triage_rate": 0.3392,
+      "over_triage_rate": 0.4237,
+      "under_triage_rate": 0.0745,
+      "accuracy": 0.5018,
+      "pct_routed_level_1_2": 0.2751
+    },
+    {
+      "lambda": 0.3,
+      "critical_recall": 0.6851,
+      "critical_under_triage_rate": 0.3149,
+      "over_triage_rate": 0.4426,
+      "under_triage_rate": 0.0666,
+      "accuracy": 0.4907,
+      "pct_routed_level_1_2": 0.2958
+    },
+    {
+      "lambda": 0.35,
+      "critical_recall": 0.7406,
+      "critical_under_triage_rate": 0.2594,
+      "over_triage_rate": 0.4854,
+      "under_triage_rate": 0.0517,
+      "accuracy": 0.4629,
+      "pct_routed_level_1_2": 0.3475
+    },
+    {
+      "lambda": 0.4,
+      "critical_recall": 0.8027,
+      "critical_under_triage_rate": 0.1973,
+      "over_triage_rate": 0.5192,
+      "under_triage_rate": 0.0421,
+      "accuracy": 0.4387,
+      "pct_routed_level_1_2": 0.4045
+    },
+    {
+      "lambda": 0.5,
+      "critical_recall": 0.8914,
+      "critical_under_triage_rate": 0.1086,
+      "over_triage_rate": 0.6169,
+      "under_triage_rate": 0.0285,
+      "accuracy": 0.3546,
+      "pct_routed_level_1_2": 0.5659
+    },
+    {
+      "lambda": 0.65,
+      "critical_recall": 0.9956,
+      "critical_under_triage_rate": 0.0044,
+      "over_triage_rate": 0.8097,
+      "under_triage_rate": 0.0135,
+      "accuracy": 0.1768,
+      "pct_routed_level_1_2": 0.9113
+    },
+    {
+      "lambda": 0.75,
+      "critical_recall": 0.9978,
+      "critical_under_triage_rate": 0.0022,
+      "over_triage_rate": 0.84,
+      "under_triage_rate": 0.0132,
+      "accuracy": 0.1468,
+      "pct_routed_level_1_2": 0.9954
+    },
+    {
+      "lambda": 1.0,
+      "critical_recall": 1.0,
+      "critical_under_triage_rate": 0.0,
+      "over_triage_rate": 0.8414,
+      "under_triage_rate": 0.0128,
+      "accuracy": 0.1458,
+      "pct_routed_level_1_2": 1.0
+    },
+    {
+      "lambda": 1.5,
+      "critical_recall": 1.0,
+      "critical_under_triage_rate": 0.0,
+      "over_triage_rate": 0.8439,
+      "under_triage_rate": 0.0121,
+      "accuracy": 0.144,
+      "pct_routed_level_1_2": 1.0
+    },
+    {
+      "lambda": 2.0,
+      "critical_recall": 1.0,
+      "critical_under_triage_rate": 0.0,
+      "over_triage_rate": 0.8482,
+      "under_triage_rate": 0.0114,
+      "accuracy": 0.1404,
+      "pct_routed_level_1_2": 1.0
+    },
+    {
+      "lambda": 3.0,
+      "critical_recall": 1.0,
+      "critical_under_triage_rate": 0.0,
+      "over_triage_rate": 0.9636,
+      "under_triage_rate": 0.0018,
+      "accuracy": 0.0346,
+      "pct_routed_level_1_2": 1.0
+    },
+    {
+      "lambda": 5.0,
+      "critical_recall": 1.0,
+      "critical_under_triage_rate": 0.0,
+      "over_triage_rate": 0.9857,
+      "under_triage_rate": 0.0,
+      "accuracy": 0.0143,
+      "pct_routed_level_1_2": 1.0
+    },
+    {
+      "lambda": 10.0,
+      "critical_recall": 1.0,
+      "critical_under_triage_rate": 0.0,
+      "over_triage_rate": 0.9857,
+      "under_triage_rate": 0.0,
+      "accuracy": 0.0143,
+      "pct_routed_level_1_2": 1.0
+    }
+  ],
+  "conformal": {
+    "alpha": 0.1,
+    "target_coverage": 0.9,
+    "empirical_coverage": 0.9858,
+    "mean_set_size": 4.807,
+    "pct_singleton_sets": 0.0066,
+    "coverage_by_true_level": {
+      "1": {
+        "n": 56,
+        "coverage": 1.0,
+        "mean_set_size": 4.196
+      },
+      "2": {
+        "n": 566,
+        "coverage": 1.0,
+        "mean_set_size": 4.505
+      },
+      "3": {
+        "n": 1666,
+        "coverage": 0.979,
+        "mean_set_size": 4.871
+      },
+      "4": {
+        "n": 925,
+        "coverage": 0.9935,
+        "mean_set_size": 4.902
+      },
+      "5": {
+        "n": 103,
+        "coverage": 0.9417,
+        "mean_set_size": 4.903
+      }
+    },
+    "mode": "class_conditional",
+    "n_calibration": 2806,
+    "guarantee_holds": true
+  },
+  "critical_conformal": {
+    "alpha": 0.05,
+    "threshold": 0.0763,
+    "target_max_miss_rate": 0.05,
+    "empirical_miss_rate": 0.0547,
+    "n_critical": 622,
+    "n_critical_missed": 34,
+    "pct_patients_cleared": 0.2663,
+    "guarantee_holds": true,
+    "n_calibration": 451,
+    "interpretation": "26.6% of patients can have a critical presentation excluded with 95% confidence; of genuinely critical patients, 5.5% fall below the threshold (target ≤5%)."
+  }
+}

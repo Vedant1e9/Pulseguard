@@ -1,0 +1,371 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# PatientTriage.ai: Clinical Safety Rule Pack
+# ═══════════════════════════════════════════════════════════════════════════
+#
+# This file is the deterministic safety layer's policy. The *logic* of each
+# rule lives in engine/safety_engine.py where it can be unit-tested; the
+# *policy*, which rules are active, what thresholds they fire at, how far
+# they escalate: lives here, where a medical director can read it, argue with
+# it, and sign it off without touching Python.
+#
+# That separation is what lets one codebase serve a 40-bed rural ED and a
+# 500-visit-a-day urban trauma centre. The rural site disables the rules it
+# cannot action and raises the thresholds it cannot staff; the trauma centre
+# runs the lot. Neither needs a code change, and every difference between the
+# two is a diff in a version-controlled file.
+#
+# Every rule carries a `citation` because a clinician's first question about
+# an automated escalation is "says who?".
+# ═══════════════════════════════════════════════════════════════════════════
+
+pack_id: default_urban_ed
+version: "2.1.0"
+effective_date: "2026-08-28"
+jurisdiction: "US, HIPAA + California CMIA"
+description: >
+  Baseline rule pack for a mid-size urban emergency department with on-site
+  critical care cover. Tuned to escalate under uncertainty; no rule in this
+  pack may ever reduce a patient's urgency.
+approved_by: "Prototype, not yet clinically approved for deployment"
+
+# ───────────────────────────────────────────────────────────────────────────
+# Age-banded critical vital sign thresholds
+#
+# Separate bands exist because a single adult-calibrated threshold set is a
+# silent safety risk: it produces false alarms on children (whose normal heart
+# rate is adult tachycardia) and silence on the elderly (who decompensate at
+# numbers an adult tolerates).
+# ───────────────────────────────────────────────────────────────────────────
+thresholds:
+  pediatric:          # 0 to 17 years
+    hr_high: 180
+    hr_low: 60
+    rr_high: 40
+    rr_low: 15
+    spo2_low: 92
+    spo2_critical: 88
+    sbp_low: 70
+    sbp_high: 150
+    temp_high: 40.0
+    temp_low: 35.5
+    citation: "PALS reference ranges (AHA 2020)"
+
+  adult:              # 18 to 64 years
+    hr_high: 150
+    hr_low: 40
+    rr_high: 30
+    rr_low: 8
+    spo2_low: 90
+    spo2_critical: 85
+    sbp_low: 90
+    sbp_high: 220
+    temp_high: 39.5
+    temp_low: 35.0
+    citation: "NEWS2 score-3 boundaries (RCP 2017)"
+
+  geriatric:          # 65+ years
+    # Deliberately tighter than the adult band. Older patients have less
+    # physiological reserve, so the point at which a vital sign becomes
+    # ominous arrives earlier, and blunted responses mean they often reach
+    # that point without looking distressed.
+    hr_high: 130
+    hr_low: 45
+    rr_high: 28
+    rr_low: 10
+    spo2_low: 92
+    spo2_critical: 88
+    sbp_low: 100
+    sbp_high: 200
+    temp_high: 39.0
+    temp_low: 35.5
+    citation: "NEWS2 with geriatric adjustment; Clinical Frailty Scale guidance"
+
+# ───────────────────────────────────────────────────────────────────────────
+# Rules. `escalate_to` is a ceiling on the level number: a rule may make a
+# patient more urgent, never less. `enabled: false` switches a rule off for
+# sites that cannot action it.
+# ───────────────────────────────────────────────────────────────────────────
+rules:
+
+# `certainty` separates two very different kinds of rule, because they should
+# not produce the same confidence figure:
+#   observed: fires on a measured fact (an unresponsive patient, an SpO₂
+#                   of 84%). The escalation is categorical; the system is not
+#                   guessing, so displayed confidence is high.
+#   precautionary: fires on an inference or an information gap (no history on
+#                   file, a critical level that cannot be statistically ruled
+#                   out). The escalation is correct policy but rests on
+#                   uncertainty, and the confidence figure must say so.
+
+  # ── Immediately life-threatening physiology ──
+  - id: UNRESPONSIVE
+    enabled: true
+    certainty: observed
+    escalate_to: 1
+    category: neurological
+    description: "Patient is unresponsive on the AVPU scale"
+    clinical_rationale: >
+      An unresponsive patient cannot protect their airway. This is a
+      resuscitation-bay presentation regardless of every other finding.
+    citation: "ATLS 10th edition; AVPU assessment"
+
+  - id: RESPONDS_TO_PAIN_ONLY
+    enabled: true
+    certainty: observed
+    escalate_to: 2
+    category: neurological
+    description: "Patient responds only to painful stimulus"
+    clinical_rationale: >
+      Corresponds to GCS ≤ 8 territory and carries a high risk of airway
+      compromise and rapid deterioration.
+    citation: "AVPU-to-GCS correlation (Kelly et al., 2004)"
+
+  - id: ALTERED_CONSCIOUSNESS
+    enabled: true
+    certainty: observed
+    escalate_to: 3
+    category: neurological
+    description: "Responds to voice only, new confusion or drowsiness"
+    clinical_rationale: >
+      New altered mental status is an independent predictor of serious
+      illness, and scores 3 on a single NEWS2 parameter on its own.
+    citation: "NEWS2 (RCP 2017), ACVPU parameter"
+
+  - id: CRITICAL_VITAL_SIGN
+    enabled: true
+    certainty: observed
+    escalate_to: 2
+    escalate_to_if_extreme: 1
+    category: physiological
+    description: "A vital sign outside the critical band for the patient's age"
+    clinical_rationale: >
+      Uses the age-banded thresholds above rather than one adult standard.
+      Extreme derangement (e.g. SpO2 below the critical floor) escalates
+      straight to resuscitation.
+    citation: "NEWS2 / PEWS score-3 parameter boundaries"
+
+  - id: UNCONTROLLED_BLEEDING
+    enabled: true
+    certainty: observed
+    escalate_to: 2
+    category: trauma
+    description: "Actively bleeding, not controlled by direct pressure"
+    clinical_rationale: >
+      Ongoing uncontrolled haemorrhage produces occult shock long before blood
+      pressure falls. By the time the systolic drops, compensation has failed.
+    citation: "ATLS haemorrhagic shock classification"
+
+  # ── Presentations that hide their severity ──
+  - id: PEDIATRIC_COMPENSATED_SHOCK
+    enabled: true
+    certainty: observed
+    escalate_to: 2
+    category: pediatric
+    description: >
+      Child with tachycardia and maintained blood pressure but poor perfusion
+      signs (pale, mottled or cyanotic skin)
+    clinical_rationale: >
+      The single most dangerous paediatric presentation. Children maintain
+      blood pressure by vasoconstricting until they abruptly cannot, so
+      "normal BP" is reassurance a paediatric patient has not earned.
+      Hypotension in a child is a pre-terminal sign, not an early warning.
+    citation: "PALS shock recognition; Advanced Paediatric Life Support"
+
+  - id: GERIATRIC_ATYPICAL_CARDIAC
+    enabled: true
+    certainty: precautionary
+    escalate_to: 2
+    category: geriatric
+    description: >
+      Older patient with atypical symptoms (fatigue, nausea, jaw or back
+      discomfort, new weakness) plus known cardiac risk
+    clinical_rationale: >
+      Up to a third of myocardial infarctions in patients over 75 present
+      without chest pain. An assistant that waits for chest pain will miss
+      them, which is precisely the silent under-triage this system exists to
+      prevent.
+    citation: "Canto et al., JAMA 2000, atypical MI presentation"
+
+  - id: GERIATRIC_ANTICOAGULATED_FALL
+    enabled: true
+    certainty: precautionary
+    escalate_to: 2
+    category: geriatric
+    description: "Older patient with a fall or head strike while anticoagulated"
+    clinical_rationale: >
+      Intracranial haemorrhage on anticoagulation can present with a normal
+      initial assessment and deteriorate hours later. A well-looking patient
+      is not evidence against it.
+    citation: "NICE CG176 head injury guidance"
+
+  - id: SEPSIS_PHYSIOLOGY
+    enabled: true
+    certainty: observed
+    escalate_to: 2
+    category: physiological
+    description: "Two or more SIRS criteria with a plausible infective source"
+    clinical_rationale: >
+      Each hour of delayed antibiotics in sepsis measurably increases
+      mortality, and early sepsis frequently looks like an unremarkable fever.
+    citation: "Surviving Sepsis Campaign 2021; Kumar et al., 2006"
+
+  # ── Uncertainty and information-gap rules ──
+  - id: ZERO_HISTORY_HIGH_RISK_COMPLAINT
+    enabled: true
+    certainty: precautionary
+    escalate_to: 2
+    category: information_gap
+    description: "High-risk chief complaint with no medical history on file"
+    clinical_rationale: >
+      Absent history is not reassuring history. With no record, we cannot
+      exclude the conditions that would make this complaint dangerous, so the
+      system escalates rather than assuming the best case.
+    citation: "Design principle: asymmetric cost of under-triage"
+
+  - id: ZERO_HISTORY_CONSERVATIVE
+    enabled: true
+    certainty: precautionary
+    escalate_to: 3
+    category: information_gap
+    description: "No medical history available, any complaint"
+    clinical_rationale: >
+      A ceiling rather than a jump: a first-time patient with nothing on file
+      is not sent below Level 3 until someone has actually looked at them.
+    citation: "Design principle: fail-safe default"
+
+  - id: CRITICAL_NOT_EXCLUDED
+    enabled: true
+    certainty: precautionary
+    escalate_to: 3
+    category: uncertainty
+    description: >
+      The 90%-coverage conformal prediction set still contains a critical
+      level, while the cost-optimal decision was Level 4 or 5
+    clinical_rationale: >
+      A statistically grounded version of "if in doubt, don't send them to the
+      back of the queue". This fires only when the model genuinely cannot rule
+      out a critical presentation at the stated coverage level.
+    citation: "Split-conformal prediction (Vovk et al.)"
+
+  - id: DETERIORATION_VELOCITY_CRITICAL
+    enabled: true
+    certainty: observed
+    escalate_to: 2
+    category: monitoring
+    description: "Vitals deteriorating rapidly across repeated observations"
+    clinical_rationale: >
+      Rate of change leads absolute thresholds. A patient whose respiratory
+      rate has climbed 8 breaths in twenty minutes is in trouble while every
+      individual reading is still technically within range.
+    citation: "Early warning score trend literature; NEWS2 escalation triggers"
+
+  - id: DETERIORATION_VELOCITY_HIGH
+    enabled: true
+    certainty: observed
+    escalate_to: 3
+    category: monitoring
+    description: "Significant worsening trend across repeated observations"
+    clinical_rationale: "As above, at a lower severity threshold."
+    citation: "NEWS2 trend monitoring guidance"
+
+  - id: WAIT_TIME_EXCEEDED
+    enabled: true
+    certainty: precautionary
+    escalate_to: null          # triggers reassessment, does not change level
+    category: monitoring
+    description: "Patient has waited beyond the safe interval for their level"
+    clinical_rationale: >
+      Triage is a snapshot and decays. This rule does not change the level; it
+      forces a fresh set of observations, because the correct response to a
+      stale assessment is to repeat it, not to guess.
+    citation: "ENA triage reassessment standards"
+
+# ───────────────────────────────────────────────────────────────────────────
+# Clinical keyword lexicons used by the text-matching rules.
+# Curated red-flag phrase lists, not a named-entity model: described exactly
+# that way so nobody mistakes them for one.
+# ───────────────────────────────────────────────────────────────────────────
+lexicons:
+  high_risk_complaints:
+    - chest pain
+    - chest pressure
+    - chest tightness
+    - difficulty breathing
+    - shortness of breath
+    - cannot breathe
+    - unconscious
+    - unresponsive
+    - seizure
+    - stroke
+    - worst headache
+    - thunderclap
+    - sudden weakness
+    - facial droop
+    - slurred speech
+    - severe bleeding
+    - overdose
+    - poisoning
+    - anaphylaxis
+    - allergic reaction
+    - suicidal
+    - self harm
+    - cardiac arrest
+    - not breathing
+    - crushing pain
+    - tearing pain
+
+  anticoagulants:
+    - warfarin
+    - coumadin
+    - heparin
+    - enoxaparin
+    - rivaroxaban
+    - apixaban
+    - dabigatran
+    - edoxaban
+    - eliquis
+    - xarelto
+    - pradaxa
+
+  geriatric_atypical_cardiac:
+    - jaw
+    - fatigue
+    - tired
+    - nausea
+    - dizzy
+    - weak
+    - short of breath
+    - indigestion
+    - back pain
+
+  fall_keywords:
+    - fall
+    - fell
+    - hit head
+    - head injury
+    - head strike
+    - tripped
+
+  infection_keywords:
+    - fever
+    - infection
+    - cough
+    - burning urination
+    - dysuria
+    - cellulitis
+    - abscess
+    - wound
+    - pneumonia
+    - sore throat
+    - chills
+    - rigors
+
+# ───────────────────────────────────────────────────────────────────────────
+# Safe waiting intervals before mandatory reassessment (minutes)
+# ───────────────────────────────────────────────────────────────────────────
+reassessment_intervals:
+  1: 0        # should never be waiting
+  2: 10
+  3: 30
+  4: 60
+  5: 120

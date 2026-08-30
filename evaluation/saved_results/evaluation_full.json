@@ -1,0 +1,1073 @@
+{
+  "generated_at": "2026-08-28T22:22:49.286369",
+  "evaluation_protocol": {
+    "test_fold": "hospitals held out from training, calibration, conformal fitting and operating-point selection",
+    "confidence_intervals": "1000-sample bootstrap, clustered by hospital",
+    "primary_metrics": "critical recall and critical under-triage; accuracy is reported but never used for selection"
+  },
+  "cohort": {
+    "source": "NHAMCS Emergency Department public-use files (CDC/NCHS)",
+    "survey_years": [
+      2021,
+      2022
+    ],
+    "total_visits_with_triage_label": 20702,
+    "total_hospitals": 176,
+    "test_fold_visits": 3316,
+    "test_fold_hospitals": 28,
+    "triage_distribution_pct": {
+      "1": 1.78,
+      "2": 15.68,
+      "3": 52.02,
+      "4": 27.02,
+      "5": 3.51
+    },
+    "critical_prevalence_pct": 17.46,
+    "admission_rate_pct": 14.56,
+    "critical_outcome_rate_pct": 2.31,
+    "age_bands": {
+      "pediatric": 3825,
+      "adult": 12652,
+      "geriatric": 4225
+    }
+  },
+  "primary_metrics": {
+    "point_estimates": {
+      "critical_recall": 0.6817,
+      "under_triage_rate": 0.0724,
+      "critical_under_triage_rate": 0.3183,
+      "critical_under_triage_count": 198,
+      "over_triage_rate": 0.4599,
+      "accuracy": 0.4677,
+      "within_one_level": 0.9309,
+      "n": 3316,
+      "n_critical": 622
+    },
+    "with_confidence_intervals": {
+      "critical_recall": {
+        "point": 0.6817,
+        "ci_low": 0.6465,
+        "ci_high": 0.7225,
+        "n_bootstrap": 1000,
+        "cluster_unit": "hospital"
+      },
+      "critical_under_triage_rate": {
+        "point": 0.3183,
+        "ci_low": 0.2775,
+        "ci_high": 0.3535,
+        "n_bootstrap": 1000,
+        "cluster_unit": "hospital"
+      },
+      "under_triage_rate": {
+        "point": 0.0724,
+        "ci_low": 0.0559,
+        "ci_high": 0.0921,
+        "n_bootstrap": 1000,
+        "cluster_unit": "hospital"
+      },
+      "over_triage_rate": {
+        "point": 0.4599,
+        "ci_low": 0.4165,
+        "ci_high": 0.4975,
+        "n_bootstrap": 1000,
+        "cluster_unit": "hospital"
+      },
+      "accuracy": {
+        "point": 0.4677,
+        "ci_low": 0.434,
+        "ci_high": 0.507,
+        "n_bootstrap": 1000,
+        "cluster_unit": "hospital"
+      },
+      "within_one_level": {
+        "point": 0.9309,
+        "ci_low": 0.9102,
+        "ci_high": 0.9481,
+        "n_bootstrap": 1000,
+        "cluster_unit": "hospital"
+      },
+      "critical_lane_load": {
+        "point": 0.3172,
+        "ci_low": 0.2879,
+        "ci_high": 0.3549,
+        "n_bootstrap": 1000,
+        "cluster_unit": "hospital"
+      }
+    }
+  },
+  "discrimination": {
+    "auroc_critical_level_1_2": 0.7919,
+    "auroc_level_1_only": 0.5629,
+    "auroc_vs_hospital_admission": 0.7767,
+    "auroc_vs_critical_outcome": 0.8078,
+    "note": "AUROC measures what the model knows, independent of the decision threshold. Reported against the nurse's label and against two outcomes the nurse could not have known at triage."
+  },
+  "baseline_comparison": {
+    "PatientTriage.ai (cost-sensitive policy)": {
+      "critical_recall": 0.6817,
+      "under_triage_rate": 0.0724,
+      "critical_under_triage_rate": 0.3183,
+      "critical_under_triage_count": 198,
+      "over_triage_rate": 0.4599,
+      "accuracy": 0.4677,
+      "within_one_level": 0.9309,
+      "n": 3316,
+      "n_critical": 622,
+      "critical_lane_load": 0.3172
+    },
+    "Same model, accuracy-maximising argmax": {
+      "critical_recall": 0.201,
+      "under_triage_rate": 0.2207,
+      "critical_under_triage_rate": 0.799,
+      "critical_under_triage_count": 497,
+      "over_triage_rate": 0.1975,
+      "accuracy": 0.5817,
+      "within_one_level": 0.9689,
+      "n": 3316,
+      "n_critical": 622,
+      "critical_lane_load": 0.0648
+    },
+    "NEWS2 / PEWS at matched lane load": {
+      "critical_recall": 0.6254,
+      "under_triage_rate": 0.3239,
+      "critical_under_triage_rate": 0.3746,
+      "critical_under_triage_count": 233,
+      "over_triage_rate": 0.4189,
+      "accuracy": 0.2572,
+      "within_one_level": 0.785,
+      "n": 3316,
+      "n_critical": 622,
+      "critical_lane_load": 0.4946
+    },
+    "NEWS2 / PEWS at published bands": {
+      "critical_recall": 0.0257,
+      "under_triage_rate": 0.8275,
+      "critical_under_triage_rate": 0.9743,
+      "critical_under_triage_count": 606,
+      "over_triage_rate": 0.0259,
+      "accuracy": 0.1466,
+      "within_one_level": 0.5926,
+      "n": 3316,
+      "n_critical": 622,
+      "critical_lane_load": 0.0075
+    },
+    "Abnormal-vitals heuristic": {
+      "critical_recall": 0.1367,
+      "under_triage_rate": 0.6022,
+      "critical_under_triage_rate": 0.8633,
+      "critical_under_triage_count": 537,
+      "over_triage_rate": 0.1218,
+      "accuracy": 0.2759,
+      "within_one_level": 0.8212,
+      "n": 3316,
+      "n_critical": 622,
+      "critical_lane_load": 0.0926
+    }
+  },
+  "baseline_comparison_note": "All rows are evaluated on identical patients. The argmax row is the same trained model with the cost policy removed. The difference between the two rows is attributable purely to the decision rule, and it is the single largest safety effect in this system.",
+  "outcome_validation": {
+    "definition": {
+      "critical_outcome": "admitted to a critical care unit, died in the ED, or dead on arrival",
+      "admitted": "admitted to hospital, to observation then hospitalised, or transferred to another acute hospital"
+    },
+    "n_critical_outcome": 66,
+    "n_admitted": 458,
+    "PatientTriage.ai (cost-sensitive policy)": {
+      "critical_outcome_patients_routed_to_waiting_room": 13,
+      "critical_outcome_capture_rate": 0.803,
+      "admitted_patients_routed_to_waiting_room_pct": 0.3712
+    },
+    "Same model, accuracy-maximising argmax": {
+      "critical_outcome_patients_routed_to_waiting_room": 46,
+      "critical_outcome_capture_rate": 0.303,
+      "admitted_patients_routed_to_waiting_room_pct": 0.8384
+    },
+    "NEWS2 / PEWS at matched lane load": {
+      "critical_outcome_patients_routed_to_waiting_room": 18,
+      "critical_outcome_capture_rate": 0.7273,
+      "admitted_patients_routed_to_waiting_room_pct": 0.3515
+    },
+    "NEWS2 / PEWS at published bands": {
+      "critical_outcome_patients_routed_to_waiting_room": 62,
+      "critical_outcome_capture_rate": 0.0606,
+      "admitted_patients_routed_to_waiting_room_pct": 0.9651
+    },
+    "Abnormal-vitals heuristic": {
+      "critical_outcome_patients_routed_to_waiting_room": 54,
+      "critical_outcome_capture_rate": 0.1818,
+      "admitted_patients_routed_to_waiting_room_pct": 0.869
+    },
+    "Triage nurses (the reference standard)": {
+      "critical_outcome_patients_routed_to_waiting_room": 16,
+      "critical_outcome_capture_rate": 0.7576,
+      "note": "Included for scale, not as a target to beat. Human triage under-triages some patients who deteriorate later; a decision support tool is useful if it catches some of those, not if it reproduces the label perfectly."
+    }
+  },
+  "fairness": {
+    "note": "Race/ethnicity and sex are never model features. They are audited because proxies exist in the remaining data, and an unmeasured disparity is an undetected one.",
+    "by_age_band": {
+      "pediatric": {
+        "n": 599,
+        "n_critical": 60,
+        "critical_recall": 0.6333,
+        "critical_under_triage_rate": 0.3667,
+        "under_triage_rate": 0.0434,
+        "over_triage_rate": 0.5977,
+        "accuracy": 0.3589
+      },
+      "adult": {
+        "n": 2084,
+        "n_critical": 379,
+        "critical_recall": 0.6675,
+        "critical_under_triage_rate": 0.3325,
+        "under_triage_rate": 0.0701,
+        "over_triage_rate": 0.4405,
+        "accuracy": 0.4894
+      },
+      "geriatric": {
+        "n": 633,
+        "n_critical": 183,
+        "critical_recall": 0.7268,
+        "critical_under_triage_rate": 0.2732,
+        "under_triage_rate": 0.1074,
+        "over_triage_rate": 0.3934,
+        "accuracy": 0.4992
+      }
+    },
+    "by_sex": {
+      "F": {
+        "n": 1836,
+        "n_critical": 336,
+        "critical_recall": 0.6607,
+        "critical_under_triage_rate": 0.3393,
+        "under_triage_rate": 0.0763,
+        "over_triage_rate": 0.4352,
+        "accuracy": 0.4886
+      },
+      "M": {
+        "n": 1480,
+        "n_critical": 286,
+        "critical_recall": 0.7063,
+        "critical_under_triage_rate": 0.2937,
+        "under_triage_rate": 0.0676,
+        "over_triage_rate": 0.4905,
+        "accuracy": 0.4419
+      }
+    },
+    "by_race_ethnicity": {
+      "Hispanic": {
+        "n": 511,
+        "n_critical": 65,
+        "critical_recall": 0.5846,
+        "critical_under_triage_rate": 0.4154,
+        "under_triage_rate": 0.0568,
+        "over_triage_rate": 0.5264,
+        "accuracy": 0.4168
+      },
+      "Non-Hispanic Black": {
+        "n": 827,
+        "n_critical": 160,
+        "critical_recall": 0.6562,
+        "critical_under_triage_rate": 0.3438,
+        "under_triage_rate": 0.0871,
+        "over_triage_rate": 0.4547,
+        "accuracy": 0.4583
+      },
+      "Non-Hispanic Other": {
+        "n": 135,
+        "n_critical": 33,
+        "critical_recall": 0.697,
+        "critical_under_triage_rate": 0.303,
+        "under_triage_rate": 0.1037,
+        "over_triage_rate": 0.4593,
+        "accuracy": 0.437
+      },
+      "Non-Hispanic White": {
+        "n": 1843,
+        "n_critical": 364,
+        "critical_recall": 0.7088,
+        "critical_under_triage_rate": 0.2912,
+        "under_triage_rate": 0.0678,
+        "over_triage_rate": 0.4438,
+        "accuracy": 0.4883
+      }
+    },
+    "by_age_band_max_under_triage_gap": 0.0935,
+    "by_sex_max_under_triage_gap": 0.0456,
+    "by_race_ethnicity_max_under_triage_gap": 0.1242
+  },
+  "calibration": {
+    "brier_score": 0.5562,
+    "expected_calibration_error": 0.0427,
+    "max_calibration_error": 0.097,
+    "reliability_curve": [
+      {
+        "bin_lower": 0.3,
+        "bin_upper": 0.4,
+        "n": 26,
+        "mean_confidence": 0.379,
+        "accuracy": 0.3462,
+        "gap": 0.0328
+      },
+      {
+        "bin_lower": 0.4,
+        "bin_upper": 0.5,
+        "n": 554,
+        "mean_confidence": 0.4643,
+        "accuracy": 0.4838,
+        "gap": 0.0194
+      },
+      {
+        "bin_lower": 0.5,
+        "bin_upper": 0.6,
+        "n": 932,
+        "mean_confidence": 0.5518,
+        "accuracy": 0.5343,
+        "gap": 0.0175
+      },
+      {
+        "bin_lower": 0.6,
+        "bin_upper": 0.7,
+        "n": 886,
+        "mean_confidence": 0.6498,
+        "accuracy": 0.5677,
+        "gap": 0.0821
+      },
+      {
+        "bin_lower": 0.7,
+        "bin_upper": 0.8,
+        "n": 898,
+        "mean_confidence": 0.7484,
+        "accuracy": 0.7049,
+        "gap": 0.0435
+      },
+      {
+        "bin_lower": 0.8,
+        "bin_upper": 0.9,
+        "n": 20,
+        "mean_confidence": 0.803,
+        "accuracy": 0.9,
+        "gap": 0.097
+      }
+    ],
+    "mean_confidence": 0.6168,
+    "accuracy": 0.5817,
+    "interpretation": "Calibration gap (mean confidence − accuracy) of +0.0351. Positive means the system is overconfident."
+  },
+  "conformal_5class": {
+    "alpha": 0.1,
+    "target_coverage": 0.9,
+    "empirical_coverage": 0.9858,
+    "mean_set_size": 4.807,
+    "pct_singleton_sets": 0.0066,
+    "coverage_by_true_level": {
+      "1": {
+        "n": 56,
+        "coverage": 1.0,
+        "mean_set_size": 4.196
+      },
+      "2": {
+        "n": 566,
+        "coverage": 1.0,
+        "mean_set_size": 4.505
+      },
+      "3": {
+        "n": 1666,
+        "coverage": 0.979,
+        "mean_set_size": 4.871
+      },
+      "4": {
+        "n": 925,
+        "coverage": 0.9935,
+        "mean_set_size": 4.902
+      },
+      "5": {
+        "n": 103,
+        "coverage": 0.9417,
+        "mean_set_size": 4.903
+      }
+    },
+    "mode": "class_conditional",
+    "n_calibration": 2806,
+    "guarantee_holds": true
+  },
+  "conformal_critical_exclusion": {
+    "alpha": 0.05,
+    "threshold": 0.0763,
+    "target_max_miss_rate": 0.05,
+    "empirical_miss_rate": 0.0547,
+    "n_critical": 622,
+    "n_critical_missed": 34,
+    "pct_patients_cleared": 0.2663,
+    "guarantee_holds": true,
+    "n_calibration": 451,
+    "interpretation": "26.6% of patients can have a critical presentation excluded with 95% confidence; of genuinely critical patients, 5.5% fall below the threshold (target ≤5%)."
+  },
+  "operating_curve": [
+    {
+      "lambda": 0.0,
+      "critical_recall": 0.0,
+      "critical_under_triage_rate": 1.0,
+      "over_triage_rate": 0.0,
+      "under_triage_rate": 0.9689,
+      "accuracy": 0.0311,
+      "pct_routed_level_1_2": 0.0
+    },
+    {
+      "lambda": 0.05,
+      "critical_recall": 0.1431,
+      "critical_under_triage_rate": 0.8569,
+      "over_triage_rate": 0.1013,
+      "under_triage_rate": 0.3465,
+      "accuracy": 0.5522,
+      "pct_routed_level_1_2": 0.0443
+    },
+    {
+      "lambda": 0.08,
+      "critical_recall": 0.2379,
+      "critical_under_triage_rate": 0.7621,
+      "over_triage_rate": 0.1553,
+      "under_triage_rate": 0.2666,
+      "accuracy": 0.5781,
+      "pct_routed_level_1_2": 0.0754
+    },
+    {
+      "lambda": 0.1,
+      "critical_recall": 0.2878,
+      "critical_under_triage_rate": 0.7122,
+      "over_triage_rate": 0.1828,
+      "under_triage_rate": 0.2262,
+      "accuracy": 0.5911,
+      "pct_routed_level_1_2": 0.0914
+    },
+    {
+      "lambda": 0.12,
+      "critical_recall": 0.3408,
+      "critical_under_triage_rate": 0.6592,
+      "over_triage_rate": 0.2078,
+      "under_triage_rate": 0.1978,
+      "accuracy": 0.5944,
+      "pct_routed_level_1_2": 0.1092
+    },
+    {
+      "lambda": 0.15,
+      "critical_recall": 0.3826,
+      "critical_under_triage_rate": 0.6174,
+      "over_triage_rate": 0.2551,
+      "under_triage_rate": 0.1728,
+      "accuracy": 0.5721,
+      "pct_routed_level_1_2": 0.1318
+    },
+    {
+      "lambda": 0.18,
+      "critical_recall": 0.4325,
+      "critical_under_triage_rate": 0.5675,
+      "over_triage_rate": 0.2958,
+      "under_triage_rate": 0.149,
+      "accuracy": 0.5552,
+      "pct_routed_level_1_2": 0.1562
+    },
+    {
+      "lambda": 0.2,
+      "critical_recall": 0.463,
+      "critical_under_triage_rate": 0.537,
+      "over_triage_rate": 0.3251,
+      "under_triage_rate": 0.1357,
+      "accuracy": 0.5392,
+      "pct_routed_level_1_2": 0.1737
+    },
+    {
+      "lambda": 0.22,
+      "critical_recall": 0.5016,
+      "critical_under_triage_rate": 0.4984,
+      "over_triage_rate": 0.3447,
+      "under_triage_rate": 0.1197,
+      "accuracy": 0.5356,
+      "pct_routed_level_1_2": 0.1906
+    },
+    {
+      "lambda": 0.25,
+      "critical_recall": 0.5434,
+      "critical_under_triage_rate": 0.4566,
+      "over_triage_rate": 0.3767,
+      "under_triage_rate": 0.1049,
+      "accuracy": 0.5184,
+      "pct_routed_level_1_2": 0.2198
+    },
+    {
+      "lambda": 0.28,
+      "critical_recall": 0.5804,
+      "critical_under_triage_rate": 0.4196,
+      "over_triage_rate": 0.4038,
+      "under_triage_rate": 0.0935,
+      "accuracy": 0.5027,
+      "pct_routed_level_1_2": 0.2461
+    },
+    {
+      "lambda": 0.3,
+      "critical_recall": 0.6174,
+      "critical_under_triage_rate": 0.3826,
+      "over_triage_rate": 0.4258,
+      "under_triage_rate": 0.085,
+      "accuracy": 0.4891,
+      "pct_routed_level_1_2": 0.2708
+    },
+    {
+      "lambda": 0.35,
+      "critical_recall": 0.6817,
+      "critical_under_triage_rate": 0.3183,
+      "over_triage_rate": 0.4599,
+      "under_triage_rate": 0.0724,
+      "accuracy": 0.4677,
+      "pct_routed_level_1_2": 0.3172
+    },
+    {
+      "lambda": 0.4,
+      "critical_recall": 0.7556,
+      "critical_under_triage_rate": 0.2444,
+      "over_triage_rate": 0.4952,
+      "under_triage_rate": 0.0579,
+      "accuracy": 0.4469,
+      "pct_routed_level_1_2": 0.3776
+    },
+    {
+      "lambda": 0.5,
+      "critical_recall": 0.8666,
+      "critical_under_triage_rate": 0.1334,
+      "over_triage_rate": 0.5935,
+      "under_triage_rate": 0.0392,
+      "accuracy": 0.3673,
+      "pct_routed_level_1_2": 0.5489
+    },
+    {
+      "lambda": 0.65,
+      "critical_recall": 0.9952,
+      "critical_under_triage_rate": 0.0048,
+      "over_triage_rate": 0.7925,
+      "under_triage_rate": 0.0166,
+      "accuracy": 0.1909,
+      "pct_routed_level_1_2": 0.9213
+    },
+    {
+      "lambda": 0.75,
+      "critical_recall": 1.0,
+      "critical_under_triage_rate": 0.0,
+      "over_triage_rate": 0.8112,
+      "under_triage_rate": 0.0157,
+      "accuracy": 0.1731,
+      "pct_routed_level_1_2": 0.9955
+    },
+    {
+      "lambda": 1.0,
+      "critical_recall": 1.0,
+      "critical_under_triage_rate": 0.0,
+      "over_triage_rate": 0.8136,
+      "under_triage_rate": 0.0157,
+      "accuracy": 0.1707,
+      "pct_routed_level_1_2": 1.0
+    },
+    {
+      "lambda": 1.5,
+      "critical_recall": 1.0,
+      "critical_under_triage_rate": 0.0,
+      "over_triage_rate": 0.8148,
+      "under_triage_rate": 0.0157,
+      "accuracy": 0.1695,
+      "pct_routed_level_1_2": 1.0
+    },
+    {
+      "lambda": 2.0,
+      "critical_recall": 1.0,
+      "critical_under_triage_rate": 0.0,
+      "over_triage_rate": 0.8179,
+      "under_triage_rate": 0.0151,
+      "accuracy": 0.1671,
+      "pct_routed_level_1_2": 1.0
+    },
+    {
+      "lambda": 3.0,
+      "critical_recall": 1.0,
+      "critical_under_triage_rate": 0.0,
+      "over_triage_rate": 0.9623,
+      "under_triage_rate": 0.0033,
+      "accuracy": 0.0344,
+      "pct_routed_level_1_2": 1.0
+    },
+    {
+      "lambda": 5.0,
+      "critical_recall": 1.0,
+      "critical_under_triage_rate": 0.0,
+      "over_triage_rate": 0.9831,
+      "under_triage_rate": 0.0,
+      "accuracy": 0.0169,
+      "pct_routed_level_1_2": 1.0
+    },
+    {
+      "lambda": 10.0,
+      "critical_recall": 1.0,
+      "critical_under_triage_rate": 0.0,
+      "over_triage_rate": 0.9831,
+      "under_triage_rate": 0.0,
+      "accuracy": 0.0169,
+      "pct_routed_level_1_2": 1.0
+    }
+  ],
+  "site_profile_comparison": {
+    "urban_trauma_center": {
+      "critical_recall": 1.0,
+      "under_triage_rate": 0.0157,
+      "critical_under_triage_rate": 0.0,
+      "critical_under_triage_count": 0,
+      "over_triage_rate": 0.8136,
+      "accuracy": 0.1707,
+      "within_one_level": 0.6873,
+      "n": 3316,
+      "n_critical": 622,
+      "critical_lane_load": 1.0,
+      "rationale": "Large urban trauma centre with on-site surgical and critical care cover around the clock. Over-triage is comparatively cheap because surge capacity exists, so the default asymmetry is used unchanged."
+    },
+    "rural_community_ed": {
+      "critical_recall": 0.9984,
+      "under_triage_rate": 0.016,
+      "critical_under_triage_rate": 0.0016,
+      "critical_under_triage_count": 1,
+      "over_triage_rate": 0.8109,
+      "accuracy": 0.1731,
+      "within_one_level": 0.6942,
+      "n": 3316,
+      "n_critical": 622,
+      "critical_lane_load": 0.9922,
+      "rationale": "Small rural ED with no on-site specialist cover and a transfer time measured in hours. Missing a critical case is even costlier than in an urban centre because rescue is slower, but over-triage is also costlier, since escalating consumes a large share of a small department. Both sides rise; the asymmetry is preserved."
+    },
+    "pediatric_specialty": {
+      "critical_recall": 1.0,
+      "under_triage_rate": 0.0151,
+      "critical_under_triage_rate": 0.0,
+      "critical_under_triage_count": 0,
+      "over_triage_rate": 0.8169,
+      "accuracy": 0.168,
+      "within_one_level": 0.6821,
+      "n": 3316,
+      "n_critical": 622,
+      "critical_lane_load": 1.0,
+      "rationale": "Paediatric ED. Children compensate well and then decompensate abruptly, so the window in which under-triage is recoverable is shorter. Under-triage costs are raised and over-triage costs held low to reflect that asymmetry."
+    },
+    "symmetric_baseline": {
+      "critical_recall": 0.1527,
+      "under_triage_rate": 0.2186,
+      "critical_under_triage_rate": 0.8473,
+      "critical_under_triage_count": 527,
+      "over_triage_rate": 0.2093,
+      "accuracy": 0.5721,
+      "within_one_level": 0.9686,
+      "n": 3316,
+      "n_critical": 622,
+      "critical_lane_load": 0.0476,
+      "rationale": "Symmetric costs. A comparison baseline only, never a deployment profile. Note what it actually optimises: because costs scale with the DISTANCE between the assigned and true level, minimising expected cost here yields the probability-weighted median, not the most likely level. It is therefore a 'minimise average levels of error' baseline rather than an accuracy-maximising one. The accuracy-maximising comparison in the evaluation is computed as a direct argmax instead, which is a different rule again. Treating the two as interchangeable is an easy and consequential mistake."
+    }
+  },
+  "performance": {
+    "end_to_end_pipeline_latency_ms": {
+      "p50": 17.3,
+      "p95": 18.9,
+      "p99": 19.7,
+      "mean": 17.4,
+      "cold_start_ms": 827.2,
+      "includes": "feature construction, calibrated model, conformal check, all clinical safety rules, SHAP attribution, counterfactual search and the full explanation trace",
+      "cold_start_note": "First call builds the SHAP explainer; excluded from the distribution and reported separately.",
+      "n_sampled": 40
+    },
+    "single_patient_latency_ms": {
+      "p50": 2.16,
+      "p95": 2.44,
+      "p99": 3.25,
+      "mean": 2.2,
+      "max": 4.47,
+      "n_sampled": 300
+    },
+    "batch_throughput": {
+      "n_patients": 3316,
+      "total_seconds": 0.145,
+      "patients_per_second": 22901.1
+    },
+    "surge_capacity": {
+      "note": "A 500-visit-per-day ED at 3× surge sees roughly 1,500 patients in 24 hours, about one arrival a minute.",
+      "arrivals_per_minute_at_3x_surge": 1.04,
+      "seconds_to_process_a_full_surge_day": 0.07
+    },
+    "hardware": "single CPU core, no GPU"
+  },
+  "robustness": {
+    "baseline": {
+      "critical_recall": 0.6817,
+      "under_triage_rate": 0.0724,
+      "critical_under_triage_rate": 0.3183,
+      "critical_under_triage_count": 198,
+      "over_triage_rate": 0.4599,
+      "accuracy": 0.4677,
+      "within_one_level": 0.9309,
+      "n": 3316,
+      "n_critical": 622,
+      "critical_lane_load": 0.3172
+    },
+    "missing_10pct_of_vitals": {
+      "critical_recall": 0.6672,
+      "under_triage_rate": 0.0742,
+      "critical_under_triage_rate": 0.3328,
+      "critical_under_triage_count": 207,
+      "over_triage_rate": 0.4629,
+      "accuracy": 0.4629,
+      "within_one_level": 0.93,
+      "n": 3316,
+      "n_critical": 622,
+      "critical_lane_load": 0.3166,
+      "critical_recall_delta": -0.0145,
+      "became_more_cautious": true
+    },
+    "missing_25pct_of_vitals": {
+      "critical_recall": 0.6656,
+      "under_triage_rate": 0.0751,
+      "critical_under_triage_rate": 0.3344,
+      "critical_under_triage_count": 208,
+      "over_triage_rate": 0.4536,
+      "accuracy": 0.4714,
+      "within_one_level": 0.9273,
+      "n": 3316,
+      "n_critical": 622,
+      "critical_lane_load": 0.3109,
+      "critical_recall_delta": -0.0161,
+      "became_more_cautious": true
+    },
+    "missing_50pct_of_vitals": {
+      "critical_recall": 0.6109,
+      "under_triage_rate": 0.0829,
+      "critical_under_triage_rate": 0.3891,
+      "critical_under_triage_count": 242,
+      "over_triage_rate": 0.4614,
+      "accuracy": 0.4557,
+      "within_one_level": 0.918,
+      "n": 3316,
+      "n_critical": 622,
+      "critical_lane_load": 0.3073,
+      "critical_recall_delta": -0.0708,
+      "became_more_cautious": true
+    },
+    "missing_75pct_of_vitals": {
+      "critical_recall": 0.6254,
+      "under_triage_rate": 0.0808,
+      "critical_under_triage_rate": 0.3746,
+      "critical_under_triage_count": 233,
+      "over_triage_rate": 0.4644,
+      "accuracy": 0.4548,
+      "within_one_level": 0.9116,
+      "n": 3316,
+      "n_critical": 622,
+      "critical_lane_load": 0.3154,
+      "critical_recall_delta": -0.0563,
+      "became_more_cautious": true
+    },
+    "all_history_removed": {
+      "critical_recall": 0.5949,
+      "under_triage_rate": 0.0872,
+      "critical_under_triage_rate": 0.4051,
+      "critical_under_triage_count": 252,
+      "over_triage_rate": 0.424,
+      "accuracy": 0.4888,
+      "within_one_level": 0.9358,
+      "n": 3316,
+      "n_critical": 622,
+      "critical_lane_load": 0.2584,
+      "note": "Simulates a department where every arrival is a first-time patient with nothing on file."
+    }
+  },
+  "cross_site": {
+    "n_hospitals_evaluated": 26,
+    "critical_recall_mean": 0.7094,
+    "critical_recall_std": 0.1265,
+    "critical_recall_min": 0.4706,
+    "critical_recall_max": 1.0,
+    "critical_recall_iqr": [
+      0.6038,
+      0.7709
+    ],
+    "per_hospital": [
+      {
+        "hospital": 128,
+        "n_visits": 105,
+        "n_critical": 17,
+        "critical_recall": 0.4706,
+        "critical_lane_load": 0.2571,
+        "accuracy": 0.2571
+      },
+      {
+        "hospital": 158,
+        "n_visits": 100,
+        "n_critical": 7,
+        "critical_recall": 0.5714,
+        "critical_lane_load": 0.47,
+        "accuracy": 0.36
+      },
+      {
+        "hospital": 2,
+        "n_visits": 229,
+        "n_critical": 62,
+        "critical_recall": 0.5806,
+        "critical_lane_load": 0.2969,
+        "accuracy": 0.5066
+      },
+      {
+        "hospital": 48,
+        "n_visits": 152,
+        "n_critical": 22,
+        "critical_recall": 0.5909,
+        "critical_lane_load": 0.2303,
+        "accuracy": 0.4079
+      },
+      {
+        "hospital": 115,
+        "n_visits": 110,
+        "n_critical": 22,
+        "critical_recall": 0.5909,
+        "critical_lane_load": 0.2,
+        "accuracy": 0.4545
+      },
+      {
+        "hospital": 71,
+        "n_visits": 156,
+        "n_critical": 32,
+        "critical_recall": 0.5938,
+        "critical_lane_load": 0.2628,
+        "accuracy": 0.6474
+      },
+      {
+        "hospital": 127,
+        "n_visits": 82,
+        "n_critical": 20,
+        "critical_recall": 0.6,
+        "critical_lane_load": 0.3537,
+        "accuracy": 0.3537
+      },
+      {
+        "hospital": 90,
+        "n_visits": 103,
+        "n_critical": 13,
+        "critical_recall": 0.6154,
+        "critical_lane_load": 0.3107,
+        "accuracy": 0.5049
+      },
+      {
+        "hospital": 17,
+        "n_visits": 165,
+        "n_critical": 19,
+        "critical_recall": 0.6316,
+        "critical_lane_load": 0.2121,
+        "accuracy": 0.4424
+      },
+      {
+        "hospital": 161,
+        "n_visits": 94,
+        "n_critical": 32,
+        "critical_recall": 0.6562,
+        "critical_lane_load": 0.4255,
+        "accuracy": 0.5426
+      },
+      {
+        "hospital": 106,
+        "n_visits": 175,
+        "n_critical": 49,
+        "critical_recall": 0.6735,
+        "critical_lane_load": 0.2857,
+        "accuracy": 0.6114
+      },
+      {
+        "hospital": 59,
+        "n_visits": 128,
+        "n_critical": 44,
+        "critical_recall": 0.6818,
+        "critical_lane_load": 0.5703,
+        "accuracy": 0.2891
+      },
+      {
+        "hospital": 107,
+        "n_visits": 176,
+        "n_critical": 13,
+        "critical_recall": 0.6923,
+        "critical_lane_load": 0.2557,
+        "accuracy": 0.3807
+      },
+      {
+        "hospital": 87,
+        "n_visits": 230,
+        "n_critical": 33,
+        "critical_recall": 0.697,
+        "critical_lane_load": 0.313,
+        "accuracy": 0.4522
+      },
+      {
+        "hospital": 26,
+        "n_visits": 51,
+        "n_critical": 10,
+        "critical_recall": 0.7,
+        "critical_lane_load": 0.3333,
+        "accuracy": 0.549
+      },
+      {
+        "hospital": 159,
+        "n_visits": 72,
+        "n_critical": 26,
+        "critical_recall": 0.7308,
+        "critical_lane_load": 0.5,
+        "accuracy": 0.5139
+      },
+      {
+        "hospital": 132,
+        "n_visits": 147,
+        "n_critical": 41,
+        "critical_recall": 0.7317,
+        "critical_lane_load": 0.3333,
+        "accuracy": 0.4218
+      },
+      {
+        "hospital": 63,
+        "n_visits": 88,
+        "n_critical": 19,
+        "critical_recall": 0.7368,
+        "critical_lane_load": 0.3523,
+        "accuracy": 0.5455
+      },
+      {
+        "hospital": 185,
+        "n_visits": 155,
+        "n_critical": 16,
+        "critical_recall": 0.75,
+        "critical_lane_load": 0.2258,
+        "accuracy": 0.5226
+      },
+      {
+        "hospital": 25,
+        "n_visits": 216,
+        "n_critical": 36,
+        "critical_recall": 0.7778,
+        "critical_lane_load": 0.2963,
+        "accuracy": 0.5093
+      },
+      {
+        "hospital": 34,
+        "n_visits": 71,
+        "n_critical": 11,
+        "critical_recall": 0.8182,
+        "critical_lane_load": 0.3944,
+        "accuracy": 0.4225
+      },
+      {
+        "hospital": 150,
+        "n_visits": 132,
+        "n_critical": 24,
+        "critical_recall": 0.8333,
+        "critical_lane_load": 0.3409,
+        "accuracy": 0.6061
+      },
+      {
+        "hospital": 124,
+        "n_visits": 98,
+        "n_critical": 14,
+        "critical_recall": 0.8571,
+        "critical_lane_load": 0.3367,
+        "accuracy": 0.4286
+      },
+      {
+        "hospital": 187,
+        "n_visits": 125,
+        "n_critical": 22,
+        "critical_recall": 0.8636,
+        "critical_lane_load": 0.368,
+        "accuracy": 0.504
+      },
+      {
+        "hospital": 73,
+        "n_visits": 56,
+        "n_critical": 5,
+        "critical_recall": 1.0,
+        "critical_lane_load": 0.3929,
+        "accuracy": 0.3571
+      },
+      {
+        "hospital": 145,
+        "n_visits": 65,
+        "n_critical": 5,
+        "critical_recall": 1.0,
+        "critical_lane_load": 0.3385,
+        "accuracy": 0.3846
+      }
+    ],
+    "interpretation": "Across 26 unseen hospitals, critical recall ranges from 47.1% to 100.0%. The spread, not the mean, is what a new deployment should be planned against."
+  },
+  "temporal_validation": {
+    "trained_on": "NHAMCS 2021",
+    "tested_on": "NHAMCS 2022",
+    "n_train": 10495,
+    "n_test": 10207,
+    "metrics": {
+      "critical_recall": 0.6211,
+      "under_triage_rate": 0.1321,
+      "critical_under_triage_rate": 0.3789,
+      "critical_under_triage_count": 657,
+      "over_triage_rate": 0.3535,
+      "accuracy": 0.5145,
+      "within_one_level": 0.945,
+      "n": 10207,
+      "n_critical": 1734
+    },
+    "auroc_critical": 0.7777,
+    "critical_lane_load": 0.2788,
+    "interpretation": "Trained only on 2021 and evaluated on every 2022 visit, including hospitals and a case mix it never saw. This is the closest available proxy for deploying today and running through next year without retraining."
+  },
+  "confusion_matrix": {
+    "labels": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "matrix": [
+      [
+        3,
+        37,
+        16,
+        0,
+        0
+      ],
+      [
+        1,
+        383,
+        182,
+        0,
+        0
+      ],
+      [
+        2,
+        504,
+        1155,
+        5,
+        0
+      ],
+      [
+        0,
+        109,
+        806,
+        10,
+        0
+      ],
+      [
+        0,
+        13,
+        89,
+        1,
+        0
+      ]
+    ],
+    "orientation": "rows = nurse-assigned level, columns = system level"
+  },
+  "evaluation_runtime_seconds": 22.9
+}

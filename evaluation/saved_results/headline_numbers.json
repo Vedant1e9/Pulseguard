@@ -1,0 +1,300 @@
+{
+  "generated_at": "2026-08-29T11:02:29",
+  "provenance": {
+    "evaluation_source": "evaluation/saved_results/evaluation_full.json",
+    "evaluation_generated_at": "2026-08-28T22:22:49.286369",
+    "prototype_measured_live": true,
+    "note": "Every figure is computed or observed. None is hand-entered."
+  },
+  "given_by_the_challenge": [
+    {
+      "metric": "Minimum patient records for prototype validation",
+      "value": "15 to 20+",
+      "kind": "Required minimum",
+      "source": "Brief, Minimum Prototype Expectations"
+    },
+    {
+      "metric": "Surge stress test",
+      "value": "3x normal volume",
+      "kind": "Required scenario",
+      "source": "Brief, Minimum Prototype Expectations"
+    },
+    {
+      "metric": "Triage scale",
+      "value": "5 levels",
+      "kind": "Referenced framework",
+      "source": "Brief, Reference Parameters"
+    },
+    {
+      "metric": "Target department scale",
+      "value": "100 to 500+ visits per day",
+      "kind": "Illustrative environment, not achieved throughput",
+      "source": "Brief, Reference Parameters"
+    },
+    {
+      "metric": "Assumed data availability",
+      "value": "About half of arrivals have prior records",
+      "kind": "Stated assumption",
+      "source": "Brief, Reference Parameters"
+    }
+  ],
+  "measured_from_this_prototype": {
+    "dataset": {
+      "total_visits": 20702,
+      "hospitals": 176,
+      "test_fold_visits": 3316,
+      "test_fold_hospitals": 28,
+      "critical_prevalence_pct": 17.46
+    },
+    "safety": {
+      "critical_recall": {
+        "point": 0.6817,
+        "ci_low": 0.6465,
+        "ci_high": 0.7225,
+        "n_bootstrap": 1000,
+        "cluster_unit": "hospital"
+      },
+      "critical_under_triage_rate": {
+        "point": 0.3183,
+        "ci_low": 0.2775,
+        "ci_high": 0.3535,
+        "n_bootstrap": 1000,
+        "cluster_unit": "hospital"
+      },
+      "critical_lane_load": {
+        "point": 0.3172,
+        "ci_low": 0.2879,
+        "ci_high": 0.3549,
+        "n_bootstrap": 1000,
+        "cluster_unit": "hospital"
+      },
+      "within_one_level": {
+        "point": 0.9309,
+        "ci_low": 0.9102,
+        "ci_high": 0.9481,
+        "n_bootstrap": 1000,
+        "cluster_unit": "hospital"
+      }
+    },
+    "classification": {
+      "clinical_predictive_values": {
+        "sensitivity_recall": 0.6817,
+        "specificity": 0.7669,
+        "positive_predictive_value": 0.403,
+        "negative_predictive_value": 0.9125,
+        "note": "Of patients this system does NOT route to the emergent lane, 91.3% are genuinely non-critical. That is the number that decides whether a nurse can trust a non-critical call."
+      },
+      "five_class": {
+        "per_class": {
+          "level_1": {
+            "precision": 0.5,
+            "recall": 0.0536,
+            "f1": 0.0968,
+            "support": 56
+          },
+          "level_2": {
+            "precision": 0.3662,
+            "recall": 0.6767,
+            "f1": 0.4752,
+            "support": 566
+          },
+          "level_3": {
+            "precision": 0.5138,
+            "recall": 0.6933,
+            "f1": 0.5902,
+            "support": 1666
+          },
+          "level_4": {
+            "precision": 0.625,
+            "recall": 0.0108,
+            "f1": 0.0213,
+            "support": 925
+          },
+          "level_5": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 103
+          }
+        },
+        "macro_f1": 0.2367,
+        "weighted_f1": 0.3852,
+        "accuracy": 0.4677
+      },
+      "critical_binary": {
+        "precision": 0.403,
+        "recall": 0.6817,
+        "f1": 0.5066,
+        "specificity": 0.7669,
+        "true_positives": 424,
+        "false_negatives": 198,
+        "false_positives": 628,
+        "true_negatives": 2066
+      },
+      "n_evaluated": 3316
+    },
+    "discrimination": {
+      "auroc_critical_level_1_2": 0.7919,
+      "auroc_level_1_only": 0.5629,
+      "auroc_vs_hospital_admission": 0.7767,
+      "auroc_vs_critical_outcome": 0.8078,
+      "note": "AUROC measures what the model knows, independent of the decision threshold. Reported against the nurse's label and against two outcomes the nurse could not have known at triage."
+    },
+    "outcome_validation": {
+      "n_critical_outcome_patients": 66,
+      "system_capture_rate": 0.803,
+      "nurse_capture_rate": 0.7576
+    },
+    "latency": {
+      "inference_p50_ms": 2.16,
+      "inference_p95_ms": 2.44,
+      "end_to_end_p50_ms": 17.3,
+      "end_to_end_p95_ms": 18.9,
+      "throughput_per_second": 22901.1,
+      "surge_day_seconds": 0.07
+    },
+    "generalisation": {
+      "cross_site_hospitals": 26,
+      "cross_site_recall_mean": 0.7094,
+      "cross_site_recall_min": 0.4706,
+      "cross_site_recall_max": 1.0,
+      "temporal_recall": 0.6211,
+      "temporal_auroc": 0.7777
+    },
+    "marginal_cost_of_safety": {
+      "comparison": "cost-sensitive policy vs the same model at argmax",
+      "n_test_fold": 3316,
+      "n_critical_patients": 622,
+      "extra_critical_patients_caught": 299,
+      "extra_patients_routed_to_emergent_lane": 837,
+      "patients_over_triaged_per_extra_critical_caught": 2.8,
+      "interpretation": "For every 2.8 additional patients routed to the emergent lane, one additional critical patient is caught who would otherwise have been sent to the waiting room."
+    },
+    "prototype": {
+      "boot_seconds": 2.45,
+      "board": {
+        "total_patients": 31,
+        "real_held_out_visits": 25,
+        "synthetic_edge_cases": 6
+      },
+      "triage_scale": {
+        "levels_implemented": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "n_levels_implemented": 5,
+        "levels_present_on_demo_board": [
+          1,
+          2,
+          3
+        ],
+        "note": "The scale is five levels. The demo board contains a subset because a cost-sensitive policy on 31 real patients collapses toward the middle of the scale."
+      },
+      "ambiguity_and_risk": {
+        "safety_escalations_fired": 4,
+        "high_uncertainty_patients": 1,
+        "disagreements_with_nurse": 13
+      },
+      "invariants": {
+        "patients_scored": 31,
+        "patients_with_a_confidence": 31,
+        "every_score_has_a_confidence": true
+      },
+      "reassessment": {
+        "patient": "ED-003",
+        "level_before": 3,
+        "level_after": 2,
+        "escalated_on_worsening_vitals": true,
+        "velocity_risk": "high"
+      },
+      "spoken_handover": {
+        "sample_handovers": 4,
+        "extractable_input_fields": 21,
+        "decision_fields_extractable": 0,
+        "per_handover": [
+          {
+            "handover": "Geriatric, ambulance, hypoxic",
+            "fields_extracted": 12,
+            "candidates_rejected": 0,
+            "extraction_ms": 2.7
+          },
+          {
+            "handover": "Paediatric, walk-in, febrile",
+            "fields_extracted": 11,
+            "candidates_rejected": 0,
+            "extraction_ms": 0.59
+          },
+          {
+            "handover": "Adult, minor, low acuity",
+            "fields_extracted": 13,
+            "candidates_rejected": 0,
+            "extraction_ms": 0.63
+          },
+          {
+            "handover": "Deliberately noisy transcript",
+            "fields_extracted": 4,
+            "candidates_rejected": 1,
+            "extraction_ms": 0.51
+          }
+        ],
+        "mean_extraction_ms": 1.11
+      },
+      "input_modalities": {
+        "count": 2,
+        "modalities": [
+          "structured form entry",
+          "spoken handover (voice)"
+        ],
+        "provenance_values": [
+          "device_measured",
+          "ehr_imported",
+          "manual_entry",
+          "nurse_observed",
+          "patient_reported",
+          "system_generated",
+          "voice_transcribed"
+        ]
+      },
+      "audit_events_generated": {
+        "triage_decision": 32,
+        "reassessment": 1
+      },
+      "override_manager_ready": true,
+      "rule_pack": {
+        "pack_id": "default_urban_ed",
+        "version": "2.1.0",
+        "content_hash": "977113d46708cf8b",
+        "jurisdiction": "US, HIPAA + California CMIA",
+        "effective_date": "2026-08-28",
+        "n_rules_enabled": 15,
+        "n_rules_total": 15,
+        "source": "rules_default.yaml"
+      }
+    },
+    "repository": {
+      "ui_pages": 14,
+      "automated_tests": 135,
+      "roles": 4,
+      "site_rule_packs": 2
+    },
+    "test_coverage": {
+      "available": true,
+      "runtime_code_pct": 80.0,
+      "engine_pct": 78.0,
+      "safety_engine_pct": 94.0,
+      "triage_pipeline_pct": 86.0,
+      "rule_pack_pct": 89.0,
+      "scope": "engine, models, data and ui; one-shot CLI scripts excluded"
+    },
+    "codebase": {
+      "source_lines": 12181,
+      "test_lines": 1744,
+      "source_files": 44,
+      "test_files": 12,
+      "app_py_lines": 335
+    }
+  }
+}
