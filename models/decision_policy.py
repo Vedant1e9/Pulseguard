@@ -1,5 +1,5 @@
 """
-PatientTriage.ai — Cost-Sensitive Decision Policy
+PulseGuard — Cost-Sensitive Decision Policy
 =================================================
 
 The brief is explicit that under-triage and over-triage carry asymmetric

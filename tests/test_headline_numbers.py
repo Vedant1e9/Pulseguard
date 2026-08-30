@@ -218,7 +218,7 @@ def test_npv_is_higher_than_ppv(evaluation):
 def test_marginal_cost_is_derived_from_the_baseline_table(evaluation):
     from scripts.generate_metrics import marginal_cost_of_safety
     mc = marginal_cost_of_safety(evaluation)
-    ours = evaluation["baseline_comparison"]["PatientTriage.ai (cost-sensitive policy)"]
+    ours = evaluation["baseline_comparison"]["PulseGuard (cost-sensitive policy)"]
     argmax = evaluation["baseline_comparison"]["Same model, accuracy-maximising argmax"]
 
     assert mc["n_test_fold"] == ours["n"]

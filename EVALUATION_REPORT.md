@@ -1,4 +1,4 @@
-# PatientTriage.ai: Evaluation Report
+# PulseGuard: Evaluation Report
 
 > **Every number in this document is generated, not hand-entered.** The canonical source is [`evaluation/saved_results/HEADLINE_NUMBERS.md`](evaluation/saved_results/HEADLINE_NUMBERS.md), rebuilt with `python -m scripts.generate_metrics`. It separates the figures the challenge supplied as scope from the figures this prototype measured, and it carries the caveat that belongs with each one.
 
@@ -68,7 +68,7 @@ AUROC measures what the model knows, independent of any decision threshold. The 
 
 | Approach | Critical recall | Critical under-triage | Lane load | Exact agreement |
 |---|---|---|---|---|
-| **PatientTriage.ai (cost-sensitive policy)** | **68.2%** | 31.8% | 31.7% | 46.8% |
+| **PulseGuard (cost-sensitive policy)** | **68.2%** | 31.8% | 31.7% | 46.8% |
 | Same model, accuracy-maximising argmax | 20.1% | 79.9% | 6.5% | 58.2% |
 | NEWS2 / PEWS at matched lane load | 62.5% | 37.5% | 49.5% | 25.7% |
 | NEWS2 / PEWS at published bands | 2.6% | 97.4% | 0.8% | 14.7% |
@@ -84,7 +84,7 @@ Of the **66 patients in the test fold who were admitted to critical care or died
 
 | Approach | Caught | Sent to waiting room |
 |---|---|---|
-| **PatientTriage.ai (cost-sensitive policy)** | **80.3%** | 13 |
+| **PulseGuard (cost-sensitive policy)** | **80.3%** | 13 |
 | Same model, accuracy-maximising argmax | 30.3% | 46 |
 | NEWS2 / PEWS at matched lane load | 72.7% | 18 |
 | NEWS2 / PEWS at published bands | 6.1% | 62 |

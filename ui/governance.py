@@ -1,4 +1,4 @@
-"""PatientTriage.ai — Clinical rule governance."""
+"""PulseGuard — Clinical rule governance."""
 
 import pandas as pd
 import streamlit as st

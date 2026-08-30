@@ -1,4 +1,4 @@
-# Model Card: PatientTriage.ai
+# Model Card: PulseGuard
 
 Following the model card framework (Mitchell et al., 2019), with the sections a
 clinical reviewer would ask for.
@@ -9,7 +9,7 @@ clinical reviewer would ask for.
 
 | | |
 |---|---|
-| **Name** | PatientTriage.ai triage risk model |
+| **Name** | PulseGuard triage risk model |
 | **Version** | 2.1.0 |
 | **Date** | 2026-08-28 |
 | **Type** | Gradient-boosted decision trees (XGBoost), 5-class ordinal outcome |

@@ -1,4 +1,4 @@
-"""PatientTriage.ai — New patient intake."""
+"""PulseGuard — New patient intake."""
 
 from datetime import datetime
 from typing import Optional

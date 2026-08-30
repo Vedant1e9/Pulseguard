@@ -1,4 +1,4 @@
-"""PatientTriage.ai — Waiting queue, ordered by live clinical hazard."""
+"""PulseGuard — Waiting queue, ordered by live clinical hazard."""
 
 import pandas as pd
 import streamlit as st

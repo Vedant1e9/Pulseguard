@@ -1,4 +1,4 @@
-"""PatientTriage.ai: Spoken handover intake."""
+"""PulseGuard: Spoken handover intake."""
 
 import hashlib
 from datetime import datetime

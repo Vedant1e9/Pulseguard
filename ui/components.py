@@ -1,4 +1,4 @@
-"""PatientTriage.ai — Shared UI components."""
+"""PulseGuard — Shared UI components."""
 
 from typing import Dict, List, Optional
 

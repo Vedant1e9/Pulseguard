@@ -1,4 +1,4 @@
-"""PatientTriage.ai — Audit log and tamper-evidence."""
+"""PulseGuard — Audit log and tamper-evidence."""
 
 import os
 

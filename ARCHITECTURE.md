@@ -1,4 +1,4 @@
-# Architecture: PatientTriage.ai
+# Architecture: PulseGuard
 
 ## The one-sentence version
 

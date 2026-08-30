@@ -1,5 +1,5 @@
 """
-PatientTriage.ai — Rule Pack Loader
+PulseGuard — Rule Pack Loader
 ===================================
 
 Loads the versioned clinical safety policy from YAML and makes it queryable.

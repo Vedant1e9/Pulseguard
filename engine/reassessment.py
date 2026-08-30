@@ -1,5 +1,5 @@
 """
-PatientTriage.ai — Reassessment Engine
+PulseGuard — Reassessment Engine
 Triggers reassessment when wait time exceeds safe thresholds, vitals worsen,
 or deterioration velocity warrants re-evaluation.
 """

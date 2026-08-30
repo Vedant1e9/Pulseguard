@@ -1,5 +1,5 @@
 """
-PatientTriage.ai — Model Training Entry Point
+PulseGuard — Model Training Entry Point
 
 Trains on real NHAMCS emergency department visits, splits by hospital so the
 test set is made of departments the model has never seen, calibrates its
@@ -35,7 +35,7 @@ def main():
     args = ap.parse_args()
 
     print("=" * 72)
-    print("PatientTriage.ai — Training on real emergency department data")
+    print("PulseGuard — Training on real emergency department data")
     print("=" * 72)
 
     df = load_clean(years=tuple(args.years))

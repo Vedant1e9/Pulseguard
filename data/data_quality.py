@@ -1,5 +1,5 @@
 """
-PatientTriage.ai — Data Quality Layer
+PulseGuard — Data Quality Layer
 Scores the completeness, freshness, and consistency of patient data.
 """
 

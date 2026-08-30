@@ -1,4 +1,4 @@
-"""PatientTriage.ai — The safety–throughput frontier and site profiles."""
+"""PulseGuard — The safety–throughput frontier and site profiles."""
 
 import pandas as pd
 import streamlit as st

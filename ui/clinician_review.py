@@ -1,4 +1,4 @@
-"""PatientTriage.ai — Clinician review and override."""
+"""PulseGuard — Clinician review and override."""
 
 import pandas as pd
 import streamlit as st

@@ -1,5 +1,5 @@
 """
-PatientTriage.ai — Full Evaluation Harness
+PulseGuard — Full Evaluation Harness
 ==========================================
 
 Produces every number this project claims, on the held-out test fold, and
@@ -239,7 +239,7 @@ def run_full_evaluation(years: Tuple[int, ...] = (2021, 2022),
 
     if verbose:
         print("=" * 74)
-        print("PatientTriage.ai — Full Evaluation")
+        print("PulseGuard — Full Evaluation")
         print("=" * 74)
 
     # ── Data + model ──
@@ -320,7 +320,7 @@ def run_full_evaluation(years: Tuple[int, ...] = (2021, 2022),
         print("[3/9] Comparing against clinical baselines …")
     lane_load = float((y_pred <= 2).mean())
     baselines = {
-        "PatientTriage.ai (cost-sensitive policy)": y_pred,
+        "PulseGuard (cost-sensitive policy)": y_pred,
         "Same model, accuracy-maximising argmax": y_argmax,
         "NEWS2 / PEWS at matched lane load": budget_matched_ews_baseline(df_test, lane_load),
         "NEWS2 / PEWS at published bands": early_warning_baseline(df_test),

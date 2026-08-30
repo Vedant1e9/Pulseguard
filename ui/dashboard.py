@@ -1,4 +1,4 @@
-"""PatientTriage.ai — Patient board (the ED's live view)."""
+"""PulseGuard — Patient board (the ED's live view)."""
 
 from datetime import datetime
 
@@ -195,7 +195,7 @@ def render_dashboard(pipeline, queue_manager, eval_results, role: str):
         m3.metric("AUROC (critical)",
                   f"{eval_results['discrimination']['auroc_critical_level_1_2']:.3f}")
 
-        ours = outcome["PatientTriage.ai (cost-sensitive policy)"]["critical_outcome_capture_rate"]
+        ours = outcome["PulseGuard (cost-sensitive policy)"]["critical_outcome_capture_rate"]
         nurses = outcome["Triage nurses (the reference standard)"]["critical_outcome_capture_rate"]
         m4.metric("ICU/death cases caught", f"{ours:.1%}",
                   delta=f"{(ours - nurses) * 100:+.1f} pts vs triage nurses",

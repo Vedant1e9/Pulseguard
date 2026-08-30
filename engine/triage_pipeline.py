@@ -1,5 +1,5 @@
 """
-PatientTriage.ai — End-to-End Triage Pipeline
+PulseGuard — End-to-End Triage Pipeline
 =============================================
 
 Orchestrates one patient's journey through the system:
@@ -199,7 +199,7 @@ class TriagePipeline:
     def initialize(self, load_demo_patients: bool = True, verbose: bool = True):
         if verbose:
             print("=" * 68)
-            print("PatientTriage.ai initialising")
+            print("PulseGuard initialising")
             print("=" * 68)
 
         if not os.path.exists(self.bundle_path):

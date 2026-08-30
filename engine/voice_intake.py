@@ -1,5 +1,5 @@
 """
-PatientTriage.ai: Spoken Handover Intake
+PulseGuard: Spoken Handover Intake
 ========================================
 
 Turns a spoken nursing handover into a *draft* structured encounter.

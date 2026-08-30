@@ -1,5 +1,5 @@
 """
-PatientTriage.ai — Decision-Trace Explanation Layer
+PulseGuard — Decision-Trace Explanation Layer
 ===================================================
 
 Explains *the decision that was actually made*, not the model in general.

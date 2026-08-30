@@ -1,5 +1,5 @@
 """
-PatientTriage.ai — Time-Decay Hazard Queue (Differentiator E)
+PulseGuard — Time-Decay Hazard Queue (Differentiator E)
 Orders the waiting queue by a live hazard score that shifts with
 wait time and latest vitals, instead of a static triage level.
 """

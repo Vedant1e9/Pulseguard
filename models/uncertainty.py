@@ -1,5 +1,5 @@
 """
-PatientTriage.ai — Calibration & Conformal Uncertainty
+PulseGuard — Calibration & Conformal Uncertainty
 ======================================================
 
 A triage assistant that says "Level 3, 99% confident" on every patient is

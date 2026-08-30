@@ -1,5 +1,5 @@
 """
-PatientTriage.ai — Demo Cohort Builder
+PulseGuard — Demo Cohort Builder
 ======================================
 
 Builds the patient board the prototype demonstrates on, from two sources that

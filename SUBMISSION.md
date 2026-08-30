@@ -1,4 +1,6 @@
-# PatientTriage.ai — Submission README
+# PulseGuard
+
+**Team PulseGuard — Submission README**
 
 **Accenture Innovation Challenge 2026 · Round 2 · Problem Track 2 (PatientTriage.ai)**
 
@@ -98,7 +100,7 @@ All figures on **3,316 visits from 28 hospitals held out** of training, calibrat
 
 | Approach | Caught |
 |---|---|
-| **PatientTriage.ai** | **80.3%** |
+| **PulseGuard** | **80.3%** |
 | Triage nurses (actual) | 75.8% |
 | NEWS2 at matched lane load | 72.7% |
 | Accuracy-maximising argmax | 30.3% |
@@ -223,4 +225,5 @@ Stated here rather than left to be discovered.
 
 ---
 
-**Team:** Vedant Sewatkar ([@Vedant1e9](https://github.com/Vedant1e9))
+**Team:** PulseGuard — Vedant Sewatkar ([@Vedant1e9](https://github.com/Vedant1e9))
+**Repository:** https://github.com/Vedant1e9/Pulseguard

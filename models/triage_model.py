@@ -1,5 +1,5 @@
 """
-PatientTriage.ai — Triage Risk Model (training & inference)
+PulseGuard — Triage Risk Model (training & inference)
 ===========================================================
 
 The learned component of the system. Everything about how it is trained is

@@ -1,5 +1,5 @@
 """
-PatientTriage.ai — Deterioration Velocity Model (Differentiator A)
+PulseGuard — Deterioration Velocity Model (Differentiator A)
 Models the rate of change on repeated vitals so a patient trending worse
 gets caught before crossing an absolute threshold.
 """

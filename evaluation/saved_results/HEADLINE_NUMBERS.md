@@ -1,4 +1,4 @@
-# PatientTriage.ai: Headline Numbers
+# PulseGuard: Headline Numbers
 
 *Generated 2026-08-29T11:02:29 by `python -m scripts.generate_metrics`. Every figure below is computed from the saved evaluation artifacts or observed by booting the system in this process. None is hand-entered.*
 

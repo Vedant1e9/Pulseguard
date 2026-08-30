@@ -103,7 +103,7 @@
     "note": "AUROC measures what the model knows, independent of the decision threshold. Reported against the nurse's label and against two outcomes the nurse could not have known at triage."
   },
   "baseline_comparison": {
-    "PatientTriage.ai (cost-sensitive policy)": {
+    "PulseGuard (cost-sensitive policy)": {
       "critical_recall": 0.6817,
       "under_triage_rate": 0.0724,
       "critical_under_triage_rate": 0.3183,
@@ -172,7 +172,7 @@
     },
     "n_critical_outcome": 66,
     "n_admitted": 458,
-    "PatientTriage.ai (cost-sensitive policy)": {
+    "PulseGuard (cost-sensitive policy)": {
       "critical_outcome_patients_routed_to_waiting_room": 13,
       "critical_outcome_capture_rate": 0.803,
       "admitted_patients_routed_to_waiting_room_pct": 0.3712

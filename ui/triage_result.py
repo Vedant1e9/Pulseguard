@@ -1,4 +1,4 @@
-"""PatientTriage.ai — Patient detail view with the full decision trace."""
+"""PulseGuard — Patient detail view with the full decision trace."""
 
 import pandas as pd
 import streamlit as st

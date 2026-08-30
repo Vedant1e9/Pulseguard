@@ -1,5 +1,5 @@
 """
-PatientTriage.ai — Input Schema & Data Models
+PulseGuard — Input Schema & Data Models
 Dataclass-based models for all four core input categories.
 Each field carries: value, unit, timestamp, source, confidence, quality
 """

@@ -1,4 +1,4 @@
-"""PatientTriage.ai: What is AI here, and what is arithmetic."""
+"""PulseGuard: What is AI here, and what is arithmetic."""
 
 import pandas as pd
 import streamlit as st

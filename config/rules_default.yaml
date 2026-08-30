@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════════════════════════════
-# PatientTriage.ai: Clinical Safety Rule Pack
+# PulseGuard: Clinical Safety Rule Pack
 # ═══════════════════════════════════════════════════════════════════════════
 #
 # This file is the deterministic safety layer's policy. The *logic* of each

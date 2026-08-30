@@ -1,4 +1,4 @@
-"""PatientTriage.ai — Robustness under degradation, and live surge simulation."""
+"""PulseGuard — Robustness under degradation, and live surge simulation."""
 
 import time
 from datetime import datetime, timedelta

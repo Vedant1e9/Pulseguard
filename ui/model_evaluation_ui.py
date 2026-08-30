@@ -1,4 +1,4 @@
-"""PatientTriage.ai — Model performance, validated on held-out hospitals."""
+"""PulseGuard — Model performance, validated on held-out hospitals."""
 
 import pandas as pd
 import streamlit as st
@@ -91,7 +91,7 @@ def render_model_evaluation(eval_results, pipeline):
     st.dataframe(pd.DataFrame(baseline_rows), use_container_width=True, hide_index=True)
 
     argmax = eval_results["baseline_comparison"]["Same model, accuracy-maximising argmax"]
-    ours = eval_results["baseline_comparison"]["PatientTriage.ai (cost-sensitive policy)"]
+    ours = eval_results["baseline_comparison"]["PulseGuard (cost-sensitive policy)"]
     st.success(
         f"**The decision rule matters more than the model.** The same trained "
         f"model on the same patients catches {argmax['critical_recall']:.1%} of "

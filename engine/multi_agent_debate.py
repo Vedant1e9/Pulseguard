@@ -1,5 +1,5 @@
 """
-PatientTriage.ai — Multi-Agent Safety Debate (Differentiator B)
+PulseGuard — Multi-Agent Safety Debate (Differentiator B)
 A Throughput Agent and a Safety Sentinel Agent produce structured disagreement
 that feeds the uncertainty score. The deterministic safety engine still makes
 the final call — the agents only INFORM it.

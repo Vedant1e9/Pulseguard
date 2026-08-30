@@ -1,5 +1,5 @@
 """
-PatientTriage.ai — Clinical Feature Engineering
+PulseGuard — Clinical Feature Engineering
 ===============================================
 
 Turns a patient record into the feature vector the models consume.

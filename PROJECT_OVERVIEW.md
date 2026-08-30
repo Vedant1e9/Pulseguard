@@ -1,4 +1,4 @@
-# PatientTriage.ai: Project Overview
+# PulseGuard: Project Overview
 
 *One document covering what this system is, what it does, how it was built,
 what it has actually been shown to do, and how it scores against the criteria a
@@ -204,7 +204,7 @@ Of the 66 held-out patients admitted to critical care or who died in the ED:
 
 | Approach | Caught |
 |---|---|
-| **PatientTriage.ai** | **80.3%** |
+| **PulseGuard** | **80.3%** |
 | Triage nurses (actual) | 75.8% |
 | NEWS2 at matched lane load | 72.7% |
 | Accuracy-maximising argmax | 30.3% |

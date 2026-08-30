@@ -1,5 +1,5 @@
 """
-PatientTriage.ai: Headline metrics generator.
+PulseGuard: Headline metrics generator.
 
 Produces the numbers a pitch, a slide or a CV line can quote, and produces them
 by *measuring* rather than by asserting. Every figure written here is either
@@ -161,7 +161,7 @@ def marginal_cost_of_safety(evaluation: Dict) -> Dict:
     """
     cohort = evaluation["cohort"]
     baseline = evaluation["baseline_comparison"]
-    ours = baseline["PatientTriage.ai (cost-sensitive policy)"]
+    ours = baseline["PulseGuard (cost-sensitive policy)"]
     argmax = baseline["Same model, accuracy-maximising argmax"]
 
     # Both figures come from the baseline table itself rather than being
@@ -480,7 +480,7 @@ def build(evaluation: Dict, classification: Dict, prototype: Dict,
             "outcome_validation": {
                 "n_critical_outcome_patients": outcome["n_critical_outcome"],
                 "system_capture_rate":
-                    outcome["PatientTriage.ai (cost-sensitive policy)"]["critical_outcome_capture_rate"],
+                    outcome["PulseGuard (cost-sensitive policy)"]["critical_outcome_capture_rate"],
                 "nurse_capture_rate":
                     outcome["Triage nurses (the reference standard)"]["critical_outcome_capture_rate"],
             },
@@ -520,7 +520,7 @@ def render_markdown(data: Dict) -> str:
     L = []
     add = L.append
 
-    add("# PatientTriage.ai: Headline Numbers\n")
+    add("# PulseGuard: Headline Numbers\n")
     add(f"*Generated {data['generated_at']} by `python -m scripts.generate_metrics`. "
         "Every figure below is computed from the saved evaluation artifacts or "
         "observed by booting the system in this process. None is hand-entered.*\n")
@@ -825,7 +825,7 @@ def main() -> int:
               f"Generate them with:  python -m evaluation.full_evaluation")
         return 1
 
-    print("PatientTriage.ai: generating headline numbers")
+    print("PulseGuard: generating headline numbers")
     with open(EVAL_JSON, encoding="utf-8") as f:
         evaluation = json.load(f)
 

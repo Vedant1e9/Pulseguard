@@ -1,5 +1,5 @@
 """
-PatientTriage.ai — Emergency Department Triage Assistant
+PulseGuard — Emergency Department Triage Assistant
 =======================================================
 
 Streamlit front end. Four roles see four different applications, because a
@@ -15,7 +15,7 @@ import streamlit as st
 sys.path.insert(0, os.path.dirname(__file__))
 
 st.set_page_config(
-    page_title="PatientTriage.ai",
+    page_title="PulseGuard",
     page_icon="🏥",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -217,7 +217,7 @@ def load_evaluation():
 
 # ─── Sidebar ─────────────────────────────────────────────────────────────────
 
-st.sidebar.markdown("## 🏥 PatientTriage.ai")
+st.sidebar.markdown("## 🏥 PulseGuard")
 st.sidebar.caption("Emergency department triage assistant")
 st.sidebar.markdown("---")
 

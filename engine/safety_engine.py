@@ -1,5 +1,5 @@
 """
-PatientTriage.ai — Deterministic Safety Engine
+PulseGuard — Deterministic Safety Engine
 ==============================================
 
 The final authority on a patient's triage level.

@@ -1,4 +1,4 @@
-# PatientTriage.ai: Data Protection Policy
+# PulseGuard: Data Protection Policy
 
 ## Jurisdiction
 
@@ -181,7 +181,7 @@ A real deployment would require comprehensive security assessment, penetration t
 
 ---
 
-*PatientTriage.ai, Accenture Innovation Challenge 2026, Round 2*
+*PulseGuard — Accenture Innovation Challenge 2026, Round 2, Problem Track 2 (PatientTriage.ai)*
 
 ---
 

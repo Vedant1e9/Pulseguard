@@ -1,4 +1,4 @@
-"""PatientTriage.ai — What-if explorer: test the system's boundaries."""
+"""PulseGuard — What-if explorer: test the system's boundaries."""
 
 from copy import deepcopy
 

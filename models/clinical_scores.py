@@ -1,5 +1,5 @@
 """
-PatientTriage.ai — Standard Clinical Early-Warning Scores
+PulseGuard — Standard Clinical Early-Warning Scores
 =========================================================
 
 Implements the published early-warning scores that emergency departments
@@ -14,7 +14,7 @@ already use, for two purposes:
 2. **As a benchmark baseline** — the honest question a clinical reviewer
    asks is not "is your model accurate?" but "is it better than the score
    my department already uses?". Every evaluation in this project reports
-   PatientTriage.ai against NEWS2/PEWS on the identical cohort.
+   PulseGuard against NEWS2/PEWS on the identical cohort.
 
 References (implemented from published definitions):
   - NEWS2: Royal College of Physicians, National Early Warning Score 2 (2017)

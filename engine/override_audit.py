@@ -1,5 +1,5 @@
 """
-PatientTriage.ai — Clinician Override & Audit Trail
+PulseGuard — Clinician Override & Audit Trail
 Captures clinician overrides with structured justification
 and maintains a tamper-evident audit log.
 

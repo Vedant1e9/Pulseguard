@@ -1,4 +1,4 @@
-"""PatientTriage.ai: Reassessment round, for patients already waiting."""
+"""PulseGuard: Reassessment round, for patients already waiting."""
 
 from datetime import datetime
 

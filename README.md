@@ -1,6 +1,6 @@
-# PatientTriage.ai
+# PulseGuard
 
-**Accenture Innovation Challenge 2026, Round 2, Problem Track 2**
+**Accenture Innovation Challenge 2026 · Round 2 · Problem Track 2 (PatientTriage.ai)**
 
 > ⚕️ A prototype clinical decision support system for research and demonstration.
 > It does not diagnose, does not treat, and must not replace assessment by a
