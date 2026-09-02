@@ -7,6 +7,13 @@
 > qualified healthcare professional. No prospective clinical validation has
 > been performed.
 
+**▶ Live demo: <https://pulseguard-fhksrpmbse32f5r5bkp7j5.streamlit.app/>**
+
+The full application, running the same trained model and the same NHAMCS-derived
+patient board as a local clone. No sign-in. Pick a role in the sidebar — start as
+**Triage nurse** on the patient board, then open a patient to see how the
+recommendation is reached. Nothing in the demo is a real patient.
+
 ---
 
 ## What this is
@@ -146,9 +153,18 @@ unrecorded and are never presented as evidence.
 
 ## Quick start
 
-Two commands. The trained model and the compressed survey data are both in the
-repository, so there is no download step and no training step before the
-application runs.
+The fastest look is the hosted build — no install at all:
+
+**<https://pulseguard-fhksrpmbse32f5r5bkp7j5.streamlit.app/>**
+
+It runs on Streamlit Community Cloud, so an idle instance sleeps and the first
+request may take a few seconds to wake it. Spoken-handover transcription is
+disabled there (no API key is deployed); that page still works from typed,
+pasted or sample transcripts, exactly as it does offline.
+
+To run it locally instead, two commands. The trained model and the compressed
+survey data are both in the repository, so there is no download step and no
+training step before the application runs.
 
 ```bash
 pip install -r requirements.txt
