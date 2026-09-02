@@ -5,7 +5,8 @@
 **Accenture Innovation Challenge 2026 · Round 2 · Problem Track 2 (PatientTriage.ai)**
 
 **Repository:** `https://github.com/Vedant1e9/Pulseguard`
-**Run it:** `pip install -r requirements.txt && streamlit run app.py` — no download step, no training step, ~2.5 s to first screen.
+**Live demo:** <https://pulseguard-fhksrpmbse32f5r5bkp7j5.streamlit.app/> — the full application, no install and no sign-in.
+**Run it locally:** `pip install -r requirements.txt && streamlit run app.py` — no download step, no training step, ~2.5 s to first screen.
 
 > ⚕️ A research prototype for demonstration. It does not diagnose, does not treat, and must not replace assessment by a qualified clinician. No prospective or regulatory validation has been performed.
 
@@ -177,6 +178,10 @@ A triage assistant that answers *how did you decide this* with "the AI said so" 
 ---
 
 ## 9. Running it
+
+The hosted build needs nothing installed: **<https://pulseguard-fhksrpmbse32f5r5bkp7j5.streamlit.app/>**. It runs on Streamlit Community Cloud, so an idle instance sleeps and the first request may take a few seconds to wake it, and no API key is deployed there, which affects only the optional extras below.
+
+Locally:
 
 ```bash
 pip install -r requirements.txt
